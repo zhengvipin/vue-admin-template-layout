@@ -1,19 +1,22 @@
 <template>
   <div :class="classObj" class="app-wrapper">
-    <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar v-if="!horizontalMode" class="sidebar-container" />
-    <div :class="{hasTagsView:needTagsView}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <zwp-top-bar v-if="horizontalMode" />
-        <navbar v-else />
-        <zwp-tags-view v-if="needTagsView" />
+    <vue-scroll>
+      <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
+      <sidebar v-if="!horizontalMode" class="sidebar-container" />
+      <div :class="{hasTagsView:needTagsView}" class="main-container">
+        <div :class="{'fixed-header':fixedHeader}">
+          <zwp-top-bar v-if="horizontalMode" />
+          <navbar v-else />
+          <zwp-tags-view v-if="needTagsView" />
+        </div>
+        <app-main />
       </div>
-      <app-main />
-    </div>
+    </vue-scroll>
   </div>
 </template>
 
 <script>
+import VueScroll from 'vuescroll'
 import { Sidebar, ZwpTopBar, AppMain, Navbar, ZwpTagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
@@ -21,6 +24,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Layout',
   components: {
+    VueScroll,
     Sidebar,
     ZwpTopBar,
     ZwpTagsView,

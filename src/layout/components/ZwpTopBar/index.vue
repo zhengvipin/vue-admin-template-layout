@@ -69,9 +69,6 @@ export default {
     variables() {
       return variables
     }
-  },
-  mounted() {
-    console.log(this.permission_routes)
   }
 }
 </script>

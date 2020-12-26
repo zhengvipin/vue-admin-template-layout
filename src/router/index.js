@@ -103,7 +103,7 @@ export const asyncRoutes = [
     name: 'Nested',
     meta: {
       title: 'Nested',
-      icon: 'el-icon-refresh'
+      icon: 'nested'
     },
     children: [
       {
