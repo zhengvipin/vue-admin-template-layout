@@ -24,5 +24,5 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether show the horizontal menu
    */
-  horizontalMode: false
+  horizontalMode: true
 }
