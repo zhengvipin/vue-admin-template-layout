@@ -6,5 +6,9 @@
 
 + 调整 tags-view 样式，向 vue-admin-beautiful 风格靠近
 
+## preview
+![效果图](https://github.com/zhengvipin/vue-admin-template-layout/blob/master/demo.png)
+
 ## Author
 zhengvipin@gmail.com
+
