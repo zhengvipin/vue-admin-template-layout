@@ -20,7 +20,7 @@ export default {
       if (icon.includes('el-icon')) {
         vnodes.push(<i class={[icon, 'sub-el-icon']} />)
       } else {
-        vnodes.push(<svg-icon icon-class={icon}/>)
+        vnodes.push(<svg-icon class='sub-svg-icon' icon-class={icon}/>)
       }
     }
 
@@ -37,5 +37,9 @@ export default {
   color: currentColor;
   width: 1em;
   height: 1em;
+}
+
+.sub-el-icon,.sub-svg-icon{
+  margin-right: 6px;
 }
 </style>

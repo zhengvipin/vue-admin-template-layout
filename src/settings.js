@@ -6,7 +6,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: false,
+  fixedHeader: true,
 
   /**
    * @type {boolean} true | false
@@ -24,5 +24,11 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether need vadAd
    */
-  vadAd: true
+  vadAd: true,
+
+  /**
+   * @type {boolean} true | false
+   * @description Whether show the horizontal menu
+   */
+  horizontalMode: true
 }

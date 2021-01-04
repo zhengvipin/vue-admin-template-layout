@@ -48,7 +48,7 @@ export default {
   width: 100%;
   height: $navbarHeight;
   line-height: $navbarHeight;
-  background: #2b2f3a;
+  background: $logoBg;
   text-align: center;
   overflow: hidden;
 

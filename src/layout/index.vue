@@ -1,10 +1,11 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar class="sidebar-container" />
+    <sidebar v-if="!horizontalMode" class="sidebar-container" />
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+        <vab-top-bar v-if="horizontalMode" />
+        <navbar v-else />
         <tags-view v-if="needTagsView" />
       </div>
       <div class="app-main">
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, AppMain, VabAd, TagsView } from './components'
+import { Navbar, Sidebar, VabTopBar, AppMain, VabAd, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
@@ -25,31 +26,77 @@ export default {
   components: {
     Navbar,
     Sidebar,
+    VabTopBar,
     AppMain,
     VabAd,
     TagsView
   },
   mixins: [ResizeMixin],
+  data() {
+    return { oldHorizontalMode: undefined }
+  },
   computed: {
     ...mapState({
       sidebar: state => state.app.sidebar,
       device: state => state.app.device,
       needTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader,
-      vadAd: state => state.settings.vadAd
+      vadAd: state => state.settings.vadAd,
+      horizontalMode: state => state.settings.horizontalMode
     }),
     classObj() {
       return {
-        hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened,
+        hideSidebar: !this.horizontalMode && !this.sidebar.opened,
+        openSidebar: !this.horizontalMode && this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile'
       }
     }
   },
+  mounted() {
+    this.oldHorizontalMode = this.horizontalMode
+    const userAgent = navigator.userAgent
+    if (userAgent.includes('Juejin')) {
+      this.$baseAlert(
+        'vue-admin-beautiful不支持在掘金内置浏览器演示，请手动复制以下地址到浏览器中查看http://mpfhrd48.sanxing.uz7.cn/vue-admin-beautiful'
+      )
+    }
+    this.handleResize()
+  },
+  beforeMount() {
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    },
+    handleIsMobile() {
+      return document.body.getBoundingClientRect().width - 1 < 992
+    },
+    handleResize() {
+      if (!document.hidden) {
+        const isMobile = this.handleIsMobile()
+        if (isMobile) {
+          // 横向布局时如果是手机端访问那么改成纵向版
+          this.$store.dispatch('settings/changeSetting', {
+            key: 'horizontalMode',
+            value: false
+          })
+        } else {
+          this.$store.dispatch('settings/changeSetting', {
+            key: 'horizontalMode',
+            value: this.oldHorizontalMode
+          })
+        }
+
+        this.$store.dispatch(
+          'app/toggleDevice',
+          isMobile ? 'mobile' : 'desktop'
+        )
+      }
     }
   }
 }
@@ -86,12 +133,16 @@ export default {
   top: 0;
   right: 0;
   z-index: 9;
-  width: calc(100% - #{$sideBarWidth});
+  width: 100%;
   transition: width 0.28s;
 }
 
+.openSidebar .fixed-header {
+  width: calc(100% - #{$sideBarWidth})
+}
+
 .hideSidebar .fixed-header {
-  width: calc(100% - #{$navbarHeight} - 4px)
+  width: calc(100% - 54px)
 }
 
 .mobile .fixed-header {
@@ -116,7 +167,7 @@ export default {
     min-height: calc(100vh - #{$navbarHeight} - 34px);
   }
 
-  .fixed-header+.app-main {
+  .fixed-header + .app-main {
     padding-top: calc(#{$navbarHeight} + 34px);;
   }
 }
