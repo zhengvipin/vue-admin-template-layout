@@ -1,13 +1,12 @@
 const Mock = require('mockjs')
-const { param2Obj } = require('./utils')
+const { param2Obj, handleMockArray } = require('./utils')
 
-const user = require('./user')
-const table = require('./table')
-
-const mocks = [
-  ...user,
-  ...table
-]
+const mocks = []
+const mockArray = handleMockArray()
+mockArray.forEach((item) => {
+  const obj = require(item)
+  mocks.push(...obj)
+})
 
 // for front mock
 // please use it cautiously, it will redefine XMLHttpRequest,

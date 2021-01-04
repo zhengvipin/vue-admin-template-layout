@@ -1,5 +1,5 @@
 <template>
-  <section class="app-main">
+  <section class="app-main-container">
     <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key" />
@@ -22,37 +22,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "~@/styles/variables.scss";
-
-.app-main {
-  /*50 = navbar  */
-  min-height: calc(100vh - #{$navbarHeight});//zwp
-  width: 100%;
-  position: relative;
+<style scoped>
+.app-main-container {
+  margin: 20px;
+  background-color: #fff;
   overflow: hidden;
-}
-.fixed-header+.app-main {
-  padding-top: $navbarHeight;//zwp
-}
-
-.hasTagsView {
-  .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - #{$navbarHeight} - #{$tagsViewHeight});
-  }
-
-  .fixed-header+.app-main {
-    padding-top: $navbarHeight + $tagsViewHeight;
-  }
-}
-</style>
-
-<style lang="scss">
-// fix css style bug in open el-dialog
-.el-popup-parent--hidden {
-  .fixed-header {
-    padding-right: 15px;
-  }
 }
 </style>

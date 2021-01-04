@@ -4,15 +4,9 @@ module.exports = {
 
   /**
    * @type {boolean} true | false
-   * @description Whether need tagsView
-   */
-  tagsView: true,
-
-  /**
-   * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: true,
+  fixedHeader: false,
 
   /**
    * @type {boolean} true | false
@@ -22,7 +16,13 @@ module.exports = {
 
   /**
    * @type {boolean} true | false
-   * @description Whether show the horizontal menu
+   * @description Whether need tagsView
    */
-  horizontalMode: false
+  tagsView: true,
+
+  /**
+   * @type {boolean} true | false
+   * @description Whether need vadAd
+   */
+  vadAd: true
 }

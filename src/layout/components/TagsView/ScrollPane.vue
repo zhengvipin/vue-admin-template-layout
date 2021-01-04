@@ -77,8 +77,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/variables.scss";
-
 .scroll-container {
   white-space: nowrap;
   position: relative;
@@ -89,7 +87,7 @@ export default {
       bottom: 0px;
     }
     .el-scrollbar__wrap {
-      height: $tagsViewHeight + 15px;//zwp
+      height: 49px;
     }
   }
 }
