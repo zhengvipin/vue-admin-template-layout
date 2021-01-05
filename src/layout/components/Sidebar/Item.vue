@@ -1,4 +1,13 @@
 <script>
+import Vue from 'vue'
+
+Vue.directive('item-show', {
+  inserted: function(el, binding) {
+    const { value } = binding
+    if (!value) el.parentNode && el.parentNode.removeChild(el)
+  }
+})
+
 export default {
   name: 'MenuItem',
   functional: true,
@@ -10,10 +19,14 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    badge: {
+      type: String,
+      default: ''
     }
   },
   render(h, context) {
-    const { icon, title } = context.props
+    const { icon, title, badge } = context.props
     const vnodes = []
 
     if (icon) {
@@ -25,8 +38,14 @@ export default {
     }
 
     if (title) {
-      vnodes.push(<span slot='title'>{(title)}</span>)
+      vnodes.push(
+        <span slot='title'>
+          {(title)}
+          <el-tag v-item-show={badge} class='sub-el-tag' type='danger' effect='dark'>{(badge)}</el-tag>
+        </span>
+      )
     }
+
     return vnodes
   }
 }
@@ -41,5 +60,12 @@ export default {
 
 .sub-el-icon,.sub-svg-icon{
   margin-right: 6px;
+}
+
+.sub-el-tag{
+  height: 16px;
+  line-height: 16px;
+  padding: 0 4px;
+  float: right;
 }
 </style>

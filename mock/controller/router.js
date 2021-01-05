@@ -1,12 +1,13 @@
 /*
 路由名称 name
-标题 title
 路径 path
 vue文件路径 component
-重定向 redirect
-图标 icon
-是否一直显示当前节点 alwaysShow
 是否隐藏 hidden
+重定向 redirect
+是否一直显示当前节点 alwaysShow
+标题 title
+图标 icon
+标记 badge
 是否无缓存 noCache
 是否在tagsView中固定 affix
 是否在面包屑中展示 breadcrumb
@@ -23,6 +24,7 @@ const route = {
   meta: {
     title: '',
     icon: '',
+    badge: '',
     noCache: false,
     breadcrumb: true,
     affix: false

@@ -70,6 +70,21 @@ $avatarWidth: 160px;
       border: none;
       height: 100%;
       width: 100% !important;
+
+      // zwp
+      .el-menu-item {
+        .sub-el-tag {
+          margin-top: calc((56px - 16px) / 2);
+        }
+      }
+
+      .nest-menu {
+        .el-menu-item {
+          .sub-el-tag {
+            margin-top: calc((50px - 16px) / 2);
+          }
+        }
+      }
     }
 
     // menu hover
@@ -235,6 +250,11 @@ $avatarWidth: 160px;
           height: $navbarHeight;
           line-height: $navbarHeight;
 
+          .sub-el-tag {
+            margin-left: 5px;
+            margin-top: calc((#{$navbarHeight} - 16px) / 2);
+          }
+
           &.is-active {
             border-bottom-width: 4px;
             border-bottom-style: solid;
@@ -245,6 +265,14 @@ $avatarWidth: 160px;
           .el-submenu__title {
             height: $navbarHeight;
             line-height: $navbarHeight;
+
+            .el-submenu__icon-arrow {
+              position: static;
+              vertical-align: middle;
+              margin-left: 8px;
+              margin-top: -3px;
+              color: $menuText;
+            }
           }
 
           &.is-active {
@@ -302,6 +330,17 @@ $avatarWidth: 160px;
     &::-webkit-scrollbar-thumb {
       background: #99a9bf;
       border-radius: 20px;
+    }
+  }
+}
+
+// zwp
+.el-menu--horizontal {
+  & > .el-menu {
+    .el-menu-item {
+      .sub-el-tag {
+        margin-top: calc((36px - 16px) / 2);
+      }
     }
   }
 }
