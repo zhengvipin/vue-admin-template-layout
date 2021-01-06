@@ -289,6 +289,12 @@ $avatarWidth: 160px;
       float: right;
       width: $avatarWidth;
       text-align: right;
+
+      .vab-avatar-item {
+        .svg-icon {
+          color: $menuText;
+        }
+      }
     }
   }
 }

@@ -1,7 +1,11 @@
 <template>
   <div class="vab-avatar">
+    <template v-if="device!=='mobile'">
+      <error-log class="errLog-container vab-avatar-item hover-effect" />
+      <screenfull id="screenfull" class="vab-avatar-item hover-effect" />
+    </template>
     <el-dropdown class="avatar-container vab-avatar-item hover-effect" trigger="click">
-      <div class="avatar-wrapper">
+      <div class="user-avatar-wrapper">
         <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
         <i class="el-icon-caret-bottom" />
       </div>
@@ -27,12 +31,19 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ErrorLog from '@/components/ErrorLog'
+import Screenfull from '@/components/Screenfull'
 
 export default {
   name: 'Index',
+  components: {
+    ErrorLog,
+    Screenfull
+  },
   computed: {
     ...mapGetters([
-      'avatar'
+      'avatar',
+      'device'
     ])
   },
   methods: {
@@ -56,6 +67,11 @@ export default {
     outline: none;
   }
 
+  .errLog-container {
+    display: inline-block;
+    vertical-align: top;
+  }
+
   .vab-avatar-item {
     display: inline-block;
     padding: 0 8px;
@@ -76,9 +92,9 @@ export default {
 
   .avatar-container {
     margin-right: 30px;
-    margin-top: calc(#{$navbarHeight} / 2 - 20px);
 
-    .avatar-wrapper {
+    .user-avatar-wrapper {
+      top: calc(#{$navbarHeight} / 2 - 20px);
       position: relative;
 
       .user-avatar {
