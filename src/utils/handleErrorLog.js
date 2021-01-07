@@ -1,26 +1,13 @@
 import store from '@/store'
 
-export const COMPONENT = 'component'
-export const REQUEST = 'request'
-export const RESPONSE = 'response'
+export const COMPONENT = 'Component'
+export const REQUEST = 'Request'
 
 export function handleComponentLog(err, vm, info) {
   handleLog(COMPONENT, window.location.href, err.message, err.stack, `${vm.$vnode.tag} error in ${info}`)
 }
 
-export function handleRequestLog(error) {
-  if (!error) return
-  handleLog(RESPONSE, error.request.responseURL, error.message, JSON.stringify(error.response, null, 4), `status ${error.response.status}`)
-}
-
-export function handleResponseLog(object) {
-  if (!object) return
-  if (object instanceof Error) {
-    handleLog(RESPONSE, object.request.responseURL, object.message, JSON.stringify(object.response, null, 4), `status ${object.response.status}`)
-  } else {
-    handleLog(RESPONSE, object.request.responseURL, object.data.message || 'Error', JSON.stringify(object, null, 4), `code ${object.data.code}`)
-  }
-}
+export const handleRequestLog = (url, message, stack, info) => handleLog(REQUEST, url, message, stack, info)
 
 /**
  * 错误日志处理

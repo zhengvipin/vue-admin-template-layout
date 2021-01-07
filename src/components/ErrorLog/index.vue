@@ -56,7 +56,8 @@ export default {
   name: 'ErrorLog',
   data() {
     return {
-      dialogTableVisible: false
+      dialogTableVisible: false,
+      componentType: COMPONENT
     }
   },
   computed: {
@@ -65,7 +66,6 @@ export default {
     }
   },
   methods: {
-    componentType: COMPONENT,
     clearAll() {
       this.dialogTableVisible = false
       this.$store.dispatch('errorLog/clearErrorLog')

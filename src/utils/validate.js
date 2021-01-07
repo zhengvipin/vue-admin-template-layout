@@ -38,3 +38,11 @@ export function isArray(arg) {
   return Array.isArray(arg)
 }
 
+/**
+ * @param {Object} obj
+ * @returns {boolean}
+ */
+export function isObject(obj) {
+  return obj != null && typeof obj === 'object' && isArray(obj) === false
+}
+

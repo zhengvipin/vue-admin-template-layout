@@ -108,7 +108,7 @@ module.exports = [
     url: '/vue-admin-template/menu/navigate',
     type: 'post',
     response() {
-      return { code: 20000, msg: 'success', data: data }
+      return { code: 200, msg: 'success', data: data }
     }
   }
 ]

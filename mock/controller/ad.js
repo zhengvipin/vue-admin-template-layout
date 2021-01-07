@@ -15,7 +15,7 @@ module.exports = [
     type: 'get',
     response() {
       return {
-        code: 20000,
+        code: 200,
         msg: 'success',
         data
       }
