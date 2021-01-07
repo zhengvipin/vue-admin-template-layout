@@ -4,36 +4,44 @@
       <svg-icon icon-class="bug" />
     </el-badge>
 
-    <el-dialog :visible.sync="dialogTableVisible" width="80%" append-to-body :lock-scroll="false">
+    <el-dialog :visible.sync="dialogTableVisible" width="90%" append-to-body :lock-scroll="false">
       <div slot="title">
         <span style="padding-right: 10px;">错误日志</span>
         <el-button size="mini" type="primary" icon="el-icon-delete" @click="clearAll">清空日志</el-button>
       </div>
       <el-table :data="errorLogs" border>
         <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-alert type="error" show-icon :closable="false">
-              <div v-html="formatError(props.row.err.stack)" />
+          <template slot-scope="{row}">
+            <el-alert type="error" :closable="false" class="error-alert">
+              <div v-if="row.type === componentType" v-html="formatError(row.stack)" />
+              <pre v-else class="error-stack" v-text="row.stack" />
             </el-alert>
+          </template>
+        </el-table-column>
+        <el-table-column label="错误类型" width="106px">
+          <template slot-scope="{row}">
+            <el-tag type="info">{{ row.type }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="报错路由">
           <template slot-scope="{row}">
-            <el-tag type="success">{{ row.url }}</el-tag>
+            <el-alert type="success" :closable="false" class="error-alert">
+              {{ row.url }}
+            </el-alert>
           </template>
         </el-table-column>
-        <el-table-column label="错误信息">
+        <el-table-column label="错误消息">
           <template slot-scope="{row}">
-            <el-tag type="danger">
-              {{ row.err.message }}
-            </el-tag>
+            <el-alert type="error" :closable="false" class="error-alert">
+              {{ row.message }}
+            </el-alert>
           </template>
         </el-table-column>
-        <el-table-column label="错误描述">
+        <el-table-column label="错误提示">
           <template slot-scope="{row}">
-            <el-tag type="warning">
-              {{ row.vm.$vnode.tag }} error in {{ row.info }}
-            </el-tag>
+            <el-alert type="warning" :closable="false" class="error-alert">
+              {{ row.info }}
+            </el-alert>
           </template>
         </el-table-column>
       </el-table>
@@ -42,6 +50,8 @@
 </template>
 
 <script>
+import { COMPONENT } from '@/utils/handleErrorLog'
+
 export default {
   name: 'ErrorLog',
   data() {
@@ -55,6 +65,7 @@ export default {
     }
   },
   methods: {
+    componentType: COMPONENT,
     clearAll() {
       this.dialogTableVisible = false
       this.$store.dispatch('errorLog/clearErrorLog')
@@ -79,6 +90,14 @@ export default {
   color: #333;
   font-weight: bold;
   padding-right: 8px;
+}
+
+::v-deep .error-alert {
+  padding: 0;
+}
+
+::v-deep .error-alert .el-alert__description{
+  margin: 2px 0;
 }
 
 ::v-deep .error-stack {

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
-import store from '@/store'
 import { getToken } from '@/utils/auth'
+import { handleRequestLog, handleResponseLog } from '@/utils/handleErrorLog'
+import store from '@/store'
 
 // create an axios instance
 const service = axios.create({
@@ -24,8 +25,7 @@ service.interceptors.request.use(
     return config
   },
   error => {
-    // do something with request error
-    console.log(error) // for debug
+    handleRequestLog(error)
     return Promise.reject(error)
   }
 )
@@ -35,7 +35,7 @@ service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
@@ -52,6 +52,8 @@ service.interceptors.response.use(
         type: 'error',
         duration: 5 * 1000
       })
+
+      handleResponseLog(response)
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
@@ -72,12 +74,15 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    // console.log('err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',
       duration: 5 * 1000
     })
+
+    handleResponseLog(error)
+
     return Promise.reject(error)
   }
 )
