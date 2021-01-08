@@ -6,7 +6,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: true,
+  fixedHeader: false,
 
   /**
    * @type {boolean} true | false
@@ -18,7 +18,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether need tagsView
    */
-  tagsView: true,
+  tagsView: false,
 
   /**
    * @type {boolean} true | false
@@ -27,8 +27,8 @@ module.exports = {
   vadAd: true,
 
   /**
-   * @type {boolean} true | false
-   * @description Whether show the horizontal menu
+   * @type {string} vertical | horizontal
+   * @description Which layout to show the menus
    */
-  horizontalMode: true
+  layout: 'vertical'
 }

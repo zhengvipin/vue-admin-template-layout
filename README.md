@@ -7,6 +7,7 @@
 + 批量导入 mock 文件  
 + 独立 VabAvatar 组件
 + 添加 VadAd 组件，支持广告轮播
++ 添加错误日志，支持 axios 错误捕捉  
 + 整体布局向 vue-admin-beautiful 风格靠近
 
 

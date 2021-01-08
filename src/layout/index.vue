@@ -1,18 +1,37 @@
 <template>
   <div :class="classObj" class="app-wrapper">
+
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <sidebar v-if="!horizontalMode" class="sidebar-container" />
-    <div :class="{hasTagsView:needTagsView}" class="main-container">
-      <div :class="{'fixed-header':fixedHeader}">
-        <vab-top-bar v-if="horizontalMode" />
-        <navbar v-else />
-        <tags-view v-if="needTagsView" />
-      </div>
-      <div class="app-main">
-        <vab-ad v-if="vadAd" />
-        <app-main />
+
+    <div v-if="layout === 'vertical'" class="layout-container-vertical">
+      <sidebar class="sidebar-container" />
+      <div class="main-container" :class="{hasTagsView:needTagsView}">
+        <div class="app-header" :class="{'fixed-header':fixedHeader}">
+          <navbar />
+          <tags-view v-if="needTagsView" />
+        </div>
+        <div class="app-main">
+          <vab-ad v-if="vadAd" />
+          <app-main />
+        </div>
       </div>
     </div>
+
+    <div v-else class="layout-container-horizontal">
+      <div :class="{hasTagsView:needTagsView}" class="main-container">
+        <div class="app-header" :class="{'fixed-header':fixedHeader}">
+          <vab-top-bar class="topbar-container" />
+          <tags-view v-if="needTagsView" />
+        </div>
+        <div class="app-main">
+          <vab-ad v-if="vadAd" />
+          <app-main />
+        </div>
+      </div>
+    </div>
+
+    <el-backtop />
+
   </div>
 </template>
 
@@ -33,7 +52,7 @@ export default {
   },
   mixins: [ResizeMixin],
   data() {
-    return { oldHorizontalMode: undefined }
+    return { oldLayout: undefined }
   },
   computed: {
     ...mapState({
@@ -42,19 +61,19 @@ export default {
       needTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader,
       vadAd: state => state.settings.vadAd,
-      horizontalMode: state => state.settings.horizontalMode
+      layout: state => state.settings.layout
     }),
     classObj() {
       return {
-        hideSidebar: !this.horizontalMode && !this.sidebar.opened,
-        openSidebar: !this.horizontalMode && this.sidebar.opened,
+        hideSidebar: this.layout === 'vertical' && !this.sidebar.opened,
+        openSidebar: this.layout === 'vertical' && this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,
         mobile: this.device === 'mobile'
       }
     }
   },
   mounted() {
-    this.oldHorizontalMode = this.horizontalMode
+    this.oldLayout = this.layout
     const userAgent = navigator.userAgent
     if (userAgent.includes('Juejin')) {
       this.$baseAlert(
@@ -82,13 +101,13 @@ export default {
         if (isMobile) {
           // 横向布局时如果是手机端访问那么改成纵向版
           this.$store.dispatch('settings/changeSetting', {
-            key: 'horizontalMode',
-            value: false
+            key: 'layout',
+            value: 'vertical'
           })
         } else {
           this.$store.dispatch('settings/changeSetting', {
-            key: 'horizontalMode',
-            value: this.oldHorizontalMode
+            key: 'layout',
+            value: this.oldLayout
           })
         }
 
@@ -103,79 +122,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/mixin.scss";
-@import "~@/styles/variables.scss";
 
-.app-wrapper {
-  @include clearfix;
-  position: relative;
-  height: 100%;
-  width: 100%;
-
-  &.mobile.openSidebar {
-    position: fixed;
-    top: 0;
-  }
-}
-
-.drawer-bg {
-  background: #000;
-  opacity: 0.3;
-  width: 100%;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  z-index: 999;
-}
-
-.fixed-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 9;
-  width: 100%;
-  transition: width 0.28s;
-}
-
-.openSidebar .fixed-header {
-  width: calc(100% - #{$sideBarWidth})
-}
-
-.hideSidebar .fixed-header {
-  width: calc(100% - 54px)
-}
-
-.mobile .fixed-header {
-  width: 100%;
-}
-
-.app-main {
-  /*50 = navbar  */
-  min-height: calc(100vh - #{$navbarHeight});
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.fixed-header + .app-main {
-  padding-top: $navbarHeight;
-}
-
-.hasTagsView {
-  .app-main {
-    /* 84 = navbar + tags-view = 50 + 34 */
-    min-height: calc(100vh - #{$navbarHeight} - 34px);
-  }
-
-  .fixed-header + .app-main {
-    padding-top: calc(#{$navbarHeight} + 34px);;
-  }
-}
-
-// fix css style bug in open el-dialog
-.el-popup-parent--hidden {
-  .fixed-header {
-    padding-right: 15px;
-  }
-}
 </style>

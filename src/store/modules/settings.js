@@ -1,6 +1,6 @@
 import defaultSettings from '@/config/settings'
 
-const { showSettings, fixedHeader, sidebarLogo, tagsView, vadAd, horizontalMode } = defaultSettings
+const { showSettings, fixedHeader, sidebarLogo, tagsView, vadAd, layout } = defaultSettings
 
 const state = {
   showSettings: showSettings,
@@ -8,7 +8,7 @@ const state = {
   sidebarLogo: sidebarLogo,
   tagsView: tagsView,
   vadAd: vadAd,
-  horizontalMode: horizontalMode
+  layout: layout
 }
 
 const mutations = {

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'vab-top-bar':true,'has-logo':showLogo}">
+  <div class="vab-topbar" :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="false" />
     <vab-avatar />
     <div class="menu-container">
