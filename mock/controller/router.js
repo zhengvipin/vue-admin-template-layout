@@ -35,6 +35,27 @@ const route = {
 
 const data = [
   {
+    path: '/icon',
+    component: '#',
+    alwaysShow: true,
+    name: 'Icon',
+    meta: { title: '图标', icon: 'icon' },
+    children: [
+      {
+        path: 'svgIcons',
+        name: 'SvgIcons',
+        component: '/views/icons/index',
+        meta: { title: 'Icons', noCache: true }
+      },
+      {
+        path: 'elementIcons',
+        name: 'ElementIcons',
+        component: '/views/icons/elementIcons',
+        meta: { title: 'Element-UI Icons', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/nested',
     component: '#',
     redirect: '/nested/menu1',

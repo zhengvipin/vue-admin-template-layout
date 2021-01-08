@@ -6,7 +6,5 @@ module.exports = {
   // 加载时显示文字
   loadingText: '正在加载中...',
   // 消息框消失时间
-  messageDuration: 3000,
-  // 是否开启登录拦截
-  loginInterception: true
+  messageDuration: 3000
 }

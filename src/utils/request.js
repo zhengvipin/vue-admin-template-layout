@@ -12,8 +12,7 @@ import {
   successCode,
   invalidCode,
   noPermissionCode,
-  tokenName,
-  loginInterception
+  tokenName
 } from '@/config'
 
 /* *********************************** loading start *********************************** */
@@ -45,9 +44,7 @@ function handleCode(code, message, response) {
   switch (code) {
     case invalidCode:
       Vue.prototype.$baseMessage(message, 'error')
-      store.dispatch('user/resetToken').then(() => {
-        if (loginInterception) location.reload()
-      }).catch(() => {
+      store.dispatch('user/resetToken').then(() => location.reload()).catch(() => {
       })
       break
     case noPermissionCode:
