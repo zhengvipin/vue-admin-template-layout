@@ -9,10 +9,11 @@ $menuHover:#263445;
 $subMenuBg:#1f2d3d;
 $subMenuHover:#001528;
 
-$sideBarWidth: 210px;
+$sidebar-width: 210px;
 
-$bodyBg: #f6f8f9;
-$navbarHeight: 50px;
+$layout-container-bg: #f6f8f9;
+$layout-main-bg: #ffffff;
+$navbarHeight: 60px;
 $logoBg: #2b2f3a;
 
 // the :export directive is the magic sauce for webpack
@@ -25,5 +26,5 @@ $logoBg: #2b2f3a;
   menuHover: $menuHover;
   subMenuBg: $subMenuBg;
   subMenuHover: $subMenuHover;
-  sideBarWidth: $sideBarWidth;
+  sideBarWidth: $sidebar-width;
 }

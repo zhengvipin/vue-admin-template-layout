@@ -1,32 +1,30 @@
 <template>
-  <div :class="classObj" class="app-wrapper">
+  <div :class="classObj" class="agree-layout">
 
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
 
-    <div v-if="layout === 'vertical'" class="layout-container-vertical">
-      <sidebar class="sidebar-container" />
-      <div class="main-container" :class="{hasTagsView:needTagsView}">
-        <div class="app-header" :class="{'fixed-header':fixedHeader}">
+    <template v-if="layout === 'vertical'">
+      <sidebar class="agree-sidebar" />
+      <div class="agree-layout-container" :class="{hasTagsView:needTagsView}">
+        <div class="agree-layout-header" :class="{'fixed-header':fixedHeader}">
           <navbar />
           <tags-view v-if="needTagsView" />
         </div>
-        <div class="app-main">
+        <div class="agree-layout-main">
           <vab-ad v-if="vadAd" />
-          <app-main />
+          <app-main class="agree-layout-main-container" />
         </div>
       </div>
-    </div>
+    </template>
 
-    <div v-else class="layout-container-horizontal">
-      <div :class="{hasTagsView:needTagsView}" class="main-container">
-        <div class="app-header" :class="{'fixed-header':fixedHeader}">
-          <vab-top-bar class="topbar-container" />
-          <tags-view v-if="needTagsView" />
-        </div>
-        <div class="app-main">
-          <vab-ad v-if="vadAd" />
-          <app-main />
-        </div>
+    <div v-else class="agree-layout-container" :class="{hasTagsView:needTagsView}">
+      <div class="agree-layout-header" :class="{'fixed-header':fixedHeader}">
+        <vab-top-bar class="topbar-container" />
+        <tags-view v-if="needTagsView" />
+      </div>
+      <div class="agree-layout-main">
+        <vab-ad v-if="vadAd" />
+        <app-main class="agree-layout-main-container" />
       </div>
     </div>
 
@@ -65,6 +63,8 @@ export default {
     }),
     classObj() {
       return {
+        'agree-layout-vertical': this.layout === 'vertical',
+        'agree-layout-horizontal': this.layout === 'horizontal',
         hideSidebar: this.layout === 'vertical' && !this.sidebar.opened,
         openSidebar: this.layout === 'vertical' && this.sidebar.opened,
         withoutAnimation: this.sidebar.withoutAnimation,

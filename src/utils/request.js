@@ -19,15 +19,17 @@ import {
 let loadingInstance
 let needLoadingRequestCount = 0
 
-export function showLoading(target) {
-  if (needLoadingRequestCount === 0 && !loadingInstance) loadingInstance = Vue.prototype.$baseLoading()
+export function showLoading() {
+  if (needLoadingRequestCount === 0 && !loadingInstance) loadingInstance = Vue.prototype.$baseLoading('.agree-layout-main-container')
   needLoadingRequestCount++
 }
 
 function toHideLoading() {
   return Vue.prototype.$baseLodash.debounce(() => {
-    loadingInstance.close()
-    loadingInstance = null
+    if (loadingInstance) {
+      loadingInstance.close()
+      loadingInstance = null
+    }
   }, 300)
 }
 

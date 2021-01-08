@@ -1,5 +1,5 @@
 <template>
-  <section class="app-main-container">
+  <section>
     <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key" />
@@ -23,9 +23,5 @@ export default {
 </script>
 
 <style scoped>
-.app-main-container {
-  margin: 20px;
-  background-color: #fff;
-  overflow: hidden;
-}
+
 </style>

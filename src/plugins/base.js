@@ -5,23 +5,13 @@ import { loadingText, messageDuration } from '@/config/global'
 
 const install = (Vue, opts = {}) => {
   /* 全局加载层 */
-  Vue.prototype.$baseLoading = (index, text) => {
-    let loading
-    if (!index) {
-      loading = Loading.service({
-        lock: true,
-        text: text || loadingText,
-        background: 'hsla(0,0%,100%,.8)'
-      })
-    } else {
-      loading = Loading.service({
-        lock: true,
-        text: text || loadingText,
-        spinner: 'vab-loading-type' + index,
-        background: 'hsla(0,0%,100%,.8)'
-      })
-    }
-    return loading
+  Vue.prototype.$baseLoading = (target) => {
+    return Loading.service({
+      lock: true,
+      text: loadingText,
+      background: 'hsla(0,0%,100%,.8)',
+      target: target || document.body
+    })
   }
 
   /* 全局Message */
@@ -45,7 +35,8 @@ const install = (Vue, opts = {}) => {
         if (callback) {
           callback()
         }
-      }
+      },
+      lockScroll: true
     })
   }
 
@@ -55,7 +46,8 @@ const install = (Vue, opts = {}) => {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       closeOnClickModal: false,
-      type: 'warning'
+      type: 'warning',
+      lockScroll: true
     })
       .then(() => {
         if (callback1) {
