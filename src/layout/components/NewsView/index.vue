@@ -38,10 +38,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~@/styles/variables.scss";
-
-$base-padding: 20px;
-
 .news-view-container {
   height: $news-view-height;
   padding-right: $base-padding;

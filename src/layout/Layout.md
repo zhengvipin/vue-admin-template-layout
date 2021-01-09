@@ -1,7 +1,7 @@
 # Agree-layout-vertical
 
 ``` html
-<div id="agree-admin-element">
+<div id="agree-element-admin">
     <div class="agree-layout agree-layout-vertical [mobile,withoutAnimation,hideSidebar,openSidebar]">
         <div class="drawer-bg"></div>
         <div class="sidebar-container [has-logo]"></div>	
@@ -22,7 +22,7 @@
 # Agree-layout-horizontal
 
 ``` html
-<div id="agree-admin-element">
+<div id="agree-element-admin">
     <div class="agree-layout agree-layout-horizontal [mobile,withoutAnimation]">
         <div class="drawer-bg"></div>
 		<div class="agree-layout-container [hasTagsView]">

@@ -1,5 +1,5 @@
 <template>
-  <div id="agree-admin-element">
+  <div id="agree-element-admin">
     <router-view />
   </div>
 </template>

@@ -56,8 +56,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/variables.scss";
-
 .right-menu {
   height: $navbar-height;
   line-height: $navbar-height;

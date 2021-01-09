@@ -1,4 +1,4 @@
-#agree-admin-element {
+#agree-element-admin {
   height: 100%;
 
   .agree-layout {
@@ -71,7 +71,7 @@
         .agree-layout-main-container {
           min-height: calc(100vh - #{$navbar-height} - #{$tags-view-height} - #{$layout-main-container-margin} * 2);
           box-sizing: border-box;
-          padding: 20px;
+          padding: $base-padding;
           margin: $layout-main-container-margin;
           background-color: $layout-main-container-bg;
         }

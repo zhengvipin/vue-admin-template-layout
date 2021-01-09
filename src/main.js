@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 Vue.config.productionTip = false
 
 new Vue({
-  el: '#agree-admin-element',
+  el: '#agree-element-admin',
   router,
   store,
   render: h => h(App)

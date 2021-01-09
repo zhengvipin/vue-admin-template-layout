@@ -1,3 +1,11 @@
+$base-color-primary: #409eff;
+$base-color-success: #67c23a;
+$base-color-warning: #e6a23c;
+$base-color-danger: #f56c6c;
+$base-color-info: #909399;
+//默认paddiing
+$base-padding: 20px;
+
 // sidebar
 $menu-color: #f3f3f3;
 $menu-color-active: #ffd04b;
@@ -29,10 +37,5 @@ $news-view-height: 30px;
 :export {
   menuColor: $menu-color;
   menuColorActive: $menu-color-active;
-  menuHover: $menu-color-hover;
   menuBgColor: $menu-bg-color;
-  submenuColorActive: $submenu-color-active;
-  submenuColorHover: $submenu-color-hover;
-  submenuBgColor: $submenu-bg-color;
-  sideBarWidth: $sidebar-width;
 }

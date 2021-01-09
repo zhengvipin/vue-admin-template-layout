@@ -130,5 +130,15 @@ module.exports = {
           config.optimization.runtimeChunk('single')
         }
       )
+  },
+  css: {
+    requireModuleExtension: true,
+    sourceMap: true,
+    loaderOptions: {
+      scss: {
+        /* sass-loader 8.0语法 */
+        prependData: '@import "~@/styles/variables.scss";'
+      }
+    }
   }
 }
