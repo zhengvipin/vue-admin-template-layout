@@ -4,7 +4,7 @@
 
     <breadcrumb class="breadcrumb-container" />
 
-    <vab-avatar class="right-menu" />
+    <right-menu class="right-menu-container" />
   </div>
 </template>
 
@@ -12,13 +12,13 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import VabAvatar from './VabAvatar'
+import RightMenu from './RightMenu'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
-    VabAvatar
+    RightMenu
   },
   computed: {
     ...mapGetters([
@@ -42,14 +42,14 @@ export default {
 @import "~@/styles/variables.scss";
 
 .navbar {
-  height: $navbarHeight;
+  height: $navbar-height;
   overflow: hidden;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
-    line-height: calc(#{$navbarHeight} - 4px);
+    line-height: calc(#{$navbar-height} - 4px);
     height: 100%;
     float: left;
     cursor: pointer;
@@ -65,7 +65,7 @@ export default {
     float: left;
   }
 
-  .right-menu {
+  .right-menu-container {
     float: right;
   }
 }

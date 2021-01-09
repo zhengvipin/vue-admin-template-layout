@@ -77,17 +77,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/styles/variables.scss";
+
 .scroll-container {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
   width: 100%;
+
   ::v-deep {
     .el-scrollbar__bar {
-      bottom: 0px;
+      bottom: 0;
     }
+
     .el-scrollbar__wrap {
-      height: 49px;
+      height: calc(#{$tags-view-height} + (#{$tags-view-height} - 34px) / 2);
     }
   }
 }

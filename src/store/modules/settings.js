@@ -1,13 +1,13 @@
 import defaultSettings from '@/config/settings'
 
-const { showSettings, fixedHeader, sidebarLogo, tagsView, vadAd, layout } = defaultSettings
+const { showSettings, fixedHeader, sidebarLogo, tagsView, newsView, layout } = defaultSettings
 
 const state = {
   showSettings: showSettings,
   fixedHeader: fixedHeader,
   sidebarLogo: sidebarLogo,
   tagsView: tagsView,
-  vadAd: vadAd,
+  newsView: newsView,
   layout: layout
 }
 

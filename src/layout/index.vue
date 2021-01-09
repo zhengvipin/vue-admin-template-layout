@@ -5,25 +5,25 @@
 
     <template v-if="layout === 'vertical'">
       <sidebar class="agree-sidebar" />
-      <div class="agree-layout-container" :class="{hasTagsView:needTagsView}">
+      <div class="agree-layout-container" :class="{hasTagsView:hasTagsView}">
         <div class="agree-layout-header" :class="{'fixed-header':fixedHeader}">
           <navbar />
-          <tags-view v-if="needTagsView" />
+          <tags-view v-if="hasTagsView" />
         </div>
-        <div class="agree-layout-main">
-          <vab-ad v-if="vadAd" />
+        <div class="agree-layout-main" :class="{'hasNewsView':hasNewsView}">
+          <news-view v-if="hasNewsView" />
           <app-main class="agree-layout-main-container" />
         </div>
       </div>
     </template>
 
-    <div v-else class="agree-layout-container" :class="{hasTagsView:needTagsView}">
+    <div v-else class="agree-layout-container" :class="{hasTagsView:hasTagsView}">
       <div class="agree-layout-header" :class="{'fixed-header':fixedHeader}">
-        <vab-top-bar class="topbar-container" />
-        <tags-view v-if="needTagsView" />
+        <topbar class="topbar-container" />
+        <tags-view v-if="hasTagsView" />
       </div>
-      <div class="agree-layout-main">
-        <vab-ad v-if="vadAd" />
+      <div class="agree-layout-main" :class="{'hasNewsView':hasNewsView}">
+        <news-view v-if="hasNewsView" />
         <app-main class="agree-layout-main-container" />
       </div>
     </div>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { Navbar, Sidebar, VabTopBar, AppMain, VabAd, TagsView } from './components'
+import { Navbar, Sidebar, Topbar, AppMain, NewsView, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 
@@ -43,9 +43,9 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    VabTopBar,
+    Topbar,
     AppMain,
-    VabAd,
+    NewsView,
     TagsView
   },
   mixins: [ResizeMixin],
@@ -56,9 +56,9 @@ export default {
     ...mapState({
       sidebar: state => state.app.sidebar,
       device: state => state.app.device,
-      needTagsView: state => state.settings.tagsView,
+      hasTagsView: state => state.settings.tagsView,
       fixedHeader: state => state.settings.fixedHeader,
-      vadAd: state => state.settings.vadAd,
+      hasNewsView: state => state.settings.newsView,
       layout: state => state.settings.layout
     }),
     classObj() {

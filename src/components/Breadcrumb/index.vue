@@ -69,7 +69,7 @@ export default {
 .app-breadcrumb.el-breadcrumb {
   display: inline-block;
   font-size: 14px;
-  line-height: $navbarHeight;
+  line-height: $navbar-height;
   margin-left: 8px;
 
   .no-redirect {

@@ -22,13 +22,13 @@ module.exports = {
 
   /**
    * @type {boolean} true | false
-   * @description Whether need vadAd
+   * @description Whether need newsView
    */
-  vadAd: true,
+  newsView: true,
 
   /**
    * @type {string} vertical | horizontal
    * @description Which layout to show the menus
    */
-  layout: 'vertical'
+  layout: 'horizontal'
 }

@@ -1,14 +1,14 @@
 <template>
-  <div class="vab-topbar" :class="{'has-logo':showLogo}">
+  <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="false" />
-    <vab-avatar />
+    <right-menu class="right-menu-container" />
     <div class="menu-container">
       <el-menu
         :default-active="activeMenu"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
+        :background-color="variables.menuBgColor"
+        :text-color="variables.menuColor"
         :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
+        :active-text-color="variables.menuColorActive"
         :collapse-transition="false"
         mode="horizontal"
       >
@@ -22,11 +22,11 @@
 import { mapGetters } from 'vuex'
 import Logo from '../Sidebar/Logo'
 import SidebarItem from '../Sidebar/SidebarItem'
-import VabAvatar from '../VabAvatar'
+import RightMenu from '../RightMenu'
 import variables from '@/styles/variables.scss'
 
 export default {
-  components: { SidebarItem, Logo, VabAvatar },
+  components: { SidebarItem, Logo, RightMenu },
   data() {
     return {
       ops: {

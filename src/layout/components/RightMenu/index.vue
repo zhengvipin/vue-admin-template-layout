@@ -1,10 +1,10 @@
 <template>
-  <div class="vab-avatar">
+  <div class="right-menu">
     <template v-if="device!=='mobile'">
-      <error-log class="errLog-container vab-avatar-item hover-effect" />
-      <screenfull id="screenfull" class="vab-avatar-item hover-effect" />
+      <error-log class="errLog-container right-menu-item hover-effect" />
+      <screenfull id="screenfull" class="right-menu-item hover-effect" />
     </template>
-    <el-dropdown class="avatar-container vab-avatar-item hover-effect" trigger="click">
+    <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
       <div class="user-avatar-wrapper">
         <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
         <i class="el-icon-caret-bottom" />
@@ -58,9 +58,9 @@ export default {
 <style lang="scss" scoped>
 @import "~@/styles/variables.scss";
 
-.vab-avatar {
-  height: $navbarHeight;
-  line-height: $navbarHeight;
+.right-menu {
+  height: $navbar-height;
+  line-height: $navbar-height;
   overflow: hidden;
 
   &:focus {
@@ -72,7 +72,7 @@ export default {
     vertical-align: top;
   }
 
-  .vab-avatar-item {
+  .right-menu-item {
     display: inline-block;
     padding: 0 8px;
     height: 100%;
@@ -94,7 +94,7 @@ export default {
     margin-right: 30px;
 
     .user-avatar-wrapper {
-      top: calc(#{$navbarHeight} / 2 - 20px);
+      top: calc(#{$navbar-height} / 2 - 20px);
       position: relative;
 
       .user-avatar {
@@ -110,7 +110,7 @@ export default {
         right: -20px;
         top: 25px;
         font-size: 12px;
-        color: $menuText;
+        color: $menu-color;
       }
     }
   }

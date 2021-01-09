@@ -46,9 +46,9 @@ export default {
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: $navbarHeight;
-  line-height: $navbarHeight;
-  background: $logoBg;
+  height: $navbar-height;
+  line-height: $navbar-height;
+  background: $logo-bg-color;
   text-align: center;
   overflow: hidden;
 
@@ -68,7 +68,7 @@ export default {
       margin: 0;
       color: #fff;
       font-weight: 600;
-      line-height: $navbarHeight;
+      line-height: $navbar-height;
       font-size: 14px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;

@@ -5,10 +5,10 @@
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
+        :background-color="variables.menuBgColor"
+        :text-color="variables.menuColor"
         :unique-opened="false"
-        :active-text-color="variables.menuActiveText"
+        :active-text-color="variables.menuColorActive"
         :collapse-transition="false"
         mode="vertical"
       >
@@ -44,6 +44,7 @@ export default {
       return this.$store.state.settings.sidebarLogo
     },
     variables() {
+      console.log(variables)
       return variables
     },
     isCollapse() {

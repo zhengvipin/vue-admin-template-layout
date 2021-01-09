@@ -10,8 +10,8 @@
                 <div class="navbar"></div>
                 <div class="tags-view-container"></div>
             </div>
-            <div class="agree-layout-main">
-                <div class="vab-ad"></div>
+            <div class="agree-layout-main [hasNewsCarousel]">
+                <div class="news-view-container"></div>
                 <div class="agree-layout-main-container"></div>
             </div>
         </div>
@@ -30,8 +30,8 @@
                 <div class="topbar-container"></div>
                 <div class="tags-view-container"></div>
             </div>
-            <div class="agree-layout-main">
-                <div class="vab-ad"></div>
+            <div class="agree-layout-main [hasNewsCarousel]">
+                <div class="news-view-container"></div>
                 <div class="agree-layout-main-container"></div>
             </div>
         </div>

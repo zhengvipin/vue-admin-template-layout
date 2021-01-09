@@ -1,5 +1,5 @@
 <template>
-  <div class="vab-ad">
+  <div class="news-view-container">
     <el-carousel
       v-if="adList"
       height="30px"
@@ -9,7 +9,7 @@
       indicator-position="none"
     >
       <el-carousel-item v-for="(item, index) in adList" :key="index">
-        <el-tag type="warning">Ad</el-tag>
+        <el-tag type="warning">News</el-tag>
         <a target="_blank" :href="item.url">{{ item.title }}</a>
       </el-carousel-item>
     </el-carousel>
@@ -19,7 +19,7 @@
 import { getList } from '@/api/ad'
 
 export default {
-  name: 'VabAd',
+  name: 'NewsView',
   data() {
     return {
       nodeEnv: process.env.NODE_ENV,
@@ -38,14 +38,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "~@/styles/variables.scss";
+
 $base-padding: 20px;
 
-.vab-ad {
-  height: 30px;
+.news-view-container {
+  height: $news-view-height;
   padding-right: $base-padding;
   padding-left: $base-padding;
-  margin-bottom: -20px;
-  line-height: 30px;
+  margin-bottom: -$layout-main-container-margin;
+  line-height: $news-view-height;
   cursor: pointer;
 
   a {
