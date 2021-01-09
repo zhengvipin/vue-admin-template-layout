@@ -1,16 +1,16 @@
 # Agree-layout-vertical
 
 ``` html
-<div id="app">
+<div id="agree-admin-element">
     <div class="agree-layout agree-layout-vertical [mobile,withoutAnimation,hideSidebar,openSidebar]">
         <div class="drawer-bg"></div>
-        <div class="agree-sidebar [has-logo]"></div>	
+        <div class="sidebar-container [has-logo]"></div>	
         <div class="agree-layout-container [hasTagsView]">
             <div class="agree-layout-header [fixed-header]">
                 <div class="navbar"></div>
                 <div class="tags-view-container"></div>
             </div>
-            <div class="agree-layout-main [hasNewsCarousel]">
+            <div class="agree-layout-main [hasNewsView]">
                 <div class="news-view-container"></div>
                 <div class="agree-layout-main-container"></div>
             </div>
@@ -22,7 +22,7 @@
 # Agree-layout-horizontal
 
 ``` html
-<div id="app">
+<div id="agree-admin-element">
     <div class="agree-layout agree-layout-horizontal [mobile,withoutAnimation]">
         <div class="drawer-bg"></div>
 		<div class="agree-layout-container [hasTagsView]">
@@ -30,7 +30,7 @@
                 <div class="topbar-container"></div>
                 <div class="tags-view-container"></div>
             </div>
-            <div class="agree-layout-main [hasNewsCarousel]">
+            <div class="agree-layout-main [hasNewsView]">
                 <div class="news-view-container"></div>
                 <div class="agree-layout-main-container"></div>
             </div>

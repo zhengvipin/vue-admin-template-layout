@@ -1,6 +1,3 @@
-$logoWidth: 300px;
-$avatarWidth: 160px;
-
 #agree-admin-element {
   height: 100%;
 
@@ -20,7 +17,7 @@ $avatarWidth: 160px;
       z-index: 999;
     }
 
-    .agree-sidebar {
+    .sidebar-container {
       .el-menu--collapse .el-menu .el-submenu {
         min-width: $sidebar-width !important;
       }
@@ -89,7 +86,7 @@ $avatarWidth: 160px;
 
     // 竖向布局
     &.agree-layout-vertical {
-      .agree-sidebar {
+      .sidebar-container {
         transition: width 0.28s;
         width: $sidebar-width;
         background-color: $menu-bg-color;
@@ -202,7 +199,7 @@ $avatarWidth: 160px;
       }
 
       &.hideSidebar {
-        .agree-sidebar {
+        .sidebar-container {
           width: 54px;
 
           .submenu-title-noDropdown {
@@ -280,23 +277,23 @@ $avatarWidth: 160px;
           &.has-logo {
             .sidebar-logo-container {
               float: left;
-              width: $logoWidth;
+              width: $logo-width;
               @media screen and (max-width: 760px) {
                 display: none;
               }
             }
 
             .menu-container {
-              width: calc(100% - #{$logoWidth} - #{$avatarWidth});
+              width: calc(100% - #{$logo-width} - #{$right-menu-width});
               @media screen and (max-width: 760px) {
-                width: calc(100% - #{$avatarWidth});
+                width: calc(100% - #{$right-menu-width});
               }
             }
           }
 
           .menu-container {
             float: right;
-            width: calc(100% - #{$avatarWidth});
+            width: calc(100% - #{$right-menu-width});
             height: $navbar-height;
 
             .el-menu {
@@ -348,7 +345,7 @@ $avatarWidth: 160px;
 
           .right-menu-container {
             float: right;
-            width: $avatarWidth;
+            width: $right-menu-width;
             text-align: right;
 
             .right-menu-item {
@@ -369,7 +366,7 @@ $avatarWidth: 160px;
     // 手机端自适应
     &.mobile {
 
-      .agree-sidebar {
+      .sidebar-container {
         transition: transform .28s;
         width: $sidebar-width !important;
       }
@@ -383,7 +380,7 @@ $avatarWidth: 160px;
       }
 
       &.hideSidebar {
-        .agree-sidebar {
+        .sidebar-container {
           pointer-events: none;
           transition-duration: 0.3s;
           transform: translate3d(-$sidebar-width, 0, 0);
@@ -398,7 +395,7 @@ $avatarWidth: 160px;
 
     &.withoutAnimation {
       .agree-layout-container,
-      .agree-sidebar {
+      .sidebar-container {
         transition: none;
       }
     }

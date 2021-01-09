@@ -4,7 +4,7 @@
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
 
     <template v-if="layout === 'vertical'">
-      <sidebar class="agree-sidebar" />
+      <sidebar class="sidebar-container" />
       <div class="agree-layout-container" :class="{hasTagsView:hasTagsView}">
         <div class="agree-layout-header" :class="{'fixed-header':fixedHeader}">
           <navbar />
