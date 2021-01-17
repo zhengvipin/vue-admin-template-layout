@@ -66,7 +66,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard', badge: 'Pro' }
+      meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
 
@@ -81,13 +81,25 @@ export const constantRoutes = [
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table', badge: 'Pro' }
+        meta: { title: 'Table', icon: 'table' }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      },
+      {
+        path: 'checkbox',
+        name: 'Checkbox',
+        component: () => import('element-ui-ext/examples/docs/ext-checkbox.md'),
+        meta: { title: 'Checkbox', badge: 'New' }
+      },
+      {
+        path: 'button',
+        name: 'Button',
+        component: () => import('@/components/element-ui-ext/examples/docs/button.md'),
+        meta: { title: 'Button' }
       }
     ]
   },

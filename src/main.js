@@ -17,6 +17,12 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+// show element-ui-ext demo
+import 'element-ui-ext/examples/demo-styles/index.scss'
+import 'highlight.js/styles/color-brewer.css'
+import DemoBlock from 'element-ui-ext/examples/components/DemoBlock'
+Vue.component('demo-block', DemoBlock)
+
 Vue.config.productionTip = false
 
 new Vue({
