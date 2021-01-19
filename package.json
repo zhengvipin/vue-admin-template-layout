@@ -20,6 +20,7 @@
     "element-ui": "2.13.2",
     "element-ui-ext": "file:./src/components/element-ui-ext",
     "js-cookie": "2.2.0",
+    "layui-layer": "^1.0.9",
     "lodash": "^4.17.20",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
@@ -58,8 +59,10 @@
     "serve-static": "1.13.2",
     "svg-sprite-loader": "4.1.3",
     "svgo": "1.2.2",
+    "vue-draggable-resizable": "^2.3.0",
     "vue-markdown-loader": "^2.4.1",
-    "vue-template-compiler": "2.6.10"
+    "vue-template-compiler": "2.6.10",
+    "vuescroll": "^4.17.3"
   },
   "browserslist": [
     "> 1%",

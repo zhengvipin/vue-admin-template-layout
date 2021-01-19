@@ -6,3 +6,4 @@ import '@/icons' // icon
 import './permission' // permission control
 import './errorLog' // error log
 import './base' // base
+import './layer' // layer

@@ -40,8 +40,8 @@ export default {
 <style lang="scss" scoped>
 .news-view-container {
   height: $news-view-height;
-  padding-right: $base-padding;
-  padding-left: $base-padding;
+  padding-right: 20px;
+  padding-left: 20px;
   margin-bottom: -$layout-main-container-margin;
   line-height: $news-view-height;
   cursor: pointer;

@@ -1,11 +1,11 @@
 const data = [
   {
-    title: 'vue-admin-beautiful-pro 1.7版本已发布，点我提前体验',
+    title: '起始不凡，成就远见',
     url: 'https://chu1204505056.gitee.io/vue-admin-beautiful-pro/#/index'
   },
   {
-    title: 'vue-admin-beautiful（antdv） vue3.0版本已发布，点我提前体验',
-    url: 'https://chu1204505056.gitee.io/vue-admin-beautiful-mini/#/index'
+    title: '团结一致加油干，重振国寿再出发',
+    url: 'https://chu1204505056.gitee.io/vue-admin-beautiful-pro/#/index'
   }
 ]
 
