@@ -74,6 +74,10 @@
           padding: $base-padding;
           margin: $layout-main-container-margin;
           background-color: $layout-main-container-bg;
+
+          &.without-padding {
+            padding: 0;
+          }
         }
 
         &.hasNewsView {
