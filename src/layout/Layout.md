@@ -12,7 +12,7 @@
             </div>
             <div class="agree-layout-main [hasNewsView]">
                 <div class="news-view-container"></div>
-                <div class="agree-layout-main-container"></div>
+                <div class="agree-layout-main-container [without-padding]"></div>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
             </div>
             <div class="agree-layout-main [hasNewsView]">
                 <div class="news-view-container"></div>
-                <div class="agree-layout-main-container"></div>
+                <div class="agree-layout-main-container [without-padding]"></div>
             </div>
         </div>
     </div>
