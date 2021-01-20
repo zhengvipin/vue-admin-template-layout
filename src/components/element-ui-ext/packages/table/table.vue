@@ -47,6 +47,7 @@ import { Table, TableColumn } from 'element-ui'
 import ExtPagination from '../pagination'
 import ExtColumnPicker from '../column-picker'
 import { camelCaseObject, transEnumName } from '../utils'
+import { pickBy, isNil } from 'lodash'
 
 const DEFAULT_VALUE = '--'
 const PAGINATION_PROPS = ['small', 'background', 'pageSize', 'currentPage', 'total', 'pageCount', 'layout', 'pageSizes', 'prevText', 'nextText', 'hideOnSinglePage']
@@ -142,9 +143,9 @@ export default {
       return this.$listeners
     },
     paginationProps() {
-      const props = this.$lodash.pickBy(this.attrs, (value, key) => PAGINATION_PROPS.indexOf(key) >= 0)
+      const props = pickBy(this.attrs, (value, key) => PAGINATION_PROPS.indexOf(key) >= 0)
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      if (!this.$lodash.isNil(props.total)) this.innerTotal = props.total
+      if (!isNil(props.total)) this.innerTotal = props.total
       return {
         currentPage: 1,
         pageSize: 20,
@@ -275,13 +276,13 @@ export default {
   methods: {
     getWholeEnums(columns) {
       const keys = columns.filter(item => !!item.enumKey).map(item => item.enumKey)
-      if (keys.length && this.$elementExtOptions.getEnumList) {
-        this.$elementExtOptions.getEnumList(keys).then(response => {
+      if (keys.length && this.$getEnumList) {
+        this.$getEnumList(keys).then(response => {
           columns.forEach(column => {
             if (column.enumKey && !column.formatter) {
               const enumValue = response[column.enumKey] || []
               column.formatter = (row, col, val) => {
-                if (this.$lodash.isNil(val)) return DEFAULT_VALUE
+                if (isNil(val)) return DEFAULT_VALUE
                 return transEnumName(enumValue, val, DEFAULT_VALUE)
               }
             }
@@ -300,7 +301,7 @@ export default {
     },
     rebuildColumns(columns) {
       columns.forEach(column => {
-        if (this.$lodash.isNil(column.showOverflowTooltip)) column.showOverflowTooltip = this.showOverflowTooltip
+        if (isNil(column.showOverflowTooltip)) column.showOverflowTooltip = this.showOverflowTooltip
       })
       this.innerColumns = columns
     },

@@ -102,6 +102,7 @@ import ExtRadio from '../radio'
 import ExtCheckbox from '../checkbox'
 import ExtTimePicker from '../time-picker'
 import { camelCaseObject } from '../utils'
+import { pickBy, cloneDeep, isNil, isArray, find } from 'lodash'
 
 const LABEL_PROPS = ['prop', 'label', 'label-width', 'labelWidth', 'required', 'rules', 'inline-message', 'inlineMessage']
 
@@ -295,10 +296,10 @@ export default {
       }
     },
     labelProps() {
-      return this.$lodash.pickBy(this.attrs, (value, key) => LABEL_PROPS.indexOf(key) >= 0)
+      return pickBy(this.attrs, (value, key) => LABEL_PROPS.indexOf(key) >= 0)
     },
     innerProps() {
-      return this.$lodash.pickBy(this.attrs, (value, key) => LABEL_PROPS.indexOf(key) < 0)
+      return pickBy(this.attrs, (value, key) => LABEL_PROPS.indexOf(key) < 0)
     },
     isInput() {
       return ['input', 'textarea', 'password'].includes(this.type)
@@ -310,14 +311,14 @@ export default {
       return ['year', 'month', 'date', 'dates', 'week', 'datetime', 'datetimerange', 'daterange', 'monthrange'].includes(this.type)
     },
     bindingLabelProps() {
-      const props = this.$lodash.cloneDeep(this.labelProps)
-      if (!this.$lodash.isNil(props.required)) return props
+      const props = cloneDeep(this.labelProps)
+      if (!isNil(props.required)) return props
       // 动态拼接required规则
       const rules = props.rules
       if (rules) {
         const newRule = {required: true, message: props.label + '不能为空', trigger: 'change'}
-        if (this.$lodash.isArray(rules)) {
-          if (!this.$lodash.find(rules, {required: true})) rules.push(newRule)
+        if (isArray(rules)) {
+          if (!find(rules, {required: true})) rules.push(newRule)
         } else {
           if (!rules.required) props.rules = [rules, newRule]
         }

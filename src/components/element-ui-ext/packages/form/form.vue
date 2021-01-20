@@ -163,9 +163,12 @@
 import { Row, Col, Form, Collapse, CollapseItem, Alert } from 'element-ui'
 import ExtFormItem from '../form-item'
 import { camelCaseObject } from '../utils'
+import resize from 'vue-resize-directive'
+import { sum, cloneDeep, isNil, isArray } from 'lodash'
 
 export default {
   name: 'ExtForm',
+  directives: { resize },
   components: {
     ElRow: Row,
     ElCol: Col,
@@ -254,7 +257,7 @@ export default {
     },
     items: {
       handler() {
-        const items = this.$lodash.cloneDeep(this.items) // 不要改变入参对象
+        const items = cloneDeep(this.items) // 不要改变入参对象
         this.getWholeEnums(items)
         const dividerArr = this.getDividerArr(items)
         this.rebuildItems(items, dividerArr)
@@ -292,7 +295,7 @@ export default {
      */
     emitFormChange() {
       const spanArr = this.items.map(item => item.span || this.innerSpan || 0)
-      const hasMore = this.$lodash.sum(spanArr) > 24
+      const hasMore = sum(spanArr) > 24
       this.$emit('form-change', hasMore)
     },
     /**
@@ -302,8 +305,8 @@ export default {
     getWholeEnums(items) {
       const keys = items.filter(item => !!item.enumKey).map(item => item.enumKey)
       if (keys.length) {
-        if (this.$elementExtOptions.getEnumList) {
-          this.$elementExtOptions.getEnumList(keys).then(response => {
+        if (this.$getEnumList) {
+          this.$getEnumList(keys).then(response => {
             items.forEach(item => {
               const enumValue = response[item.enumKey] || []
               if (item.enumKey) item.data = enumValue
@@ -324,7 +327,7 @@ export default {
         // 1.1 存储分隔符索引
         if (item.type === 'divider') indexArr.push(index)
         // 1.2 切换表单只读状态
-        item.readonly = this.$lodash.isNil(item.readonly) ? this.readonly : item.readonly
+        item.readonly = isNil(item.readonly) ? this.readonly : item.readonly
         // 1.3 合并校验规则
         const formItemRules = this.bindingProps.rules[item.prop]
         const itemRules = item.rules
@@ -332,7 +335,7 @@ export default {
           if (!itemRules) {
             item.rules = formItemRules
           } else {
-            const arrayRules = this.$lodash.isArray(formItemRules) && formItemRules || itemRules
+            const arrayRules = isArray(formItemRules) && formItemRules || itemRules
             const objectRule = Array.isArray(formItemRules) && itemRules || formItemRules
             item.rules = [...arrayRules, objectRule]
           }
@@ -373,7 +376,7 @@ export default {
       this.activeNames = multiItems.map((item, index) => index)
     },
     getItemEvents(item) {
-      const events = this.$lodash.cloneDeep(item.events || {}) // 内部封装就好，不要改变items
+      const events = cloneDeep(item.events || {}) // 内部封装就好，不要改变items
       const handleEnter = events.enter
       // 配合 ExtSearchForm 实现 Enter 搜索
       events.enter = () => {

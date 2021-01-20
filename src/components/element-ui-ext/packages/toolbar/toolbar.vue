@@ -68,6 +68,8 @@
 <script>
 import { ButtonGroup, Button, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
 import ExtButton from '../button'
+import permission from '../directive/permission'
+import { isNil, isEmpty } from 'lodash'
 
 const ALIGN_MAP = {
   left: { justifyContent: 'flex-start', textAlign: 'left' },
@@ -77,6 +79,9 @@ const ALIGN_MAP = {
 
 export default {
   name: 'ExtToolbar',
+  directives: {
+    permission
+  },
   components: {
     ExtButton,
     ElButtonGroup: ButtonGroup,
@@ -120,7 +125,7 @@ export default {
       return ALIGN_MAP[this.align]
     },
     innerButtons() {
-      const rightButtons = this.buttons.filter(button => this.$lodash.isNil(button.right) || this.$lodash.isEmpty(this.rights) || !!this.rights[button.right])
+      const rightButtons = this.buttons.filter(button => isNil(button.right) || isEmpty(this.rights) || !!this.rights[button.right])
       const buttons = { show: [], hide: [] }
       if (this.limit) {
         rightButtons.forEach((button, index) => index < this.limit ? buttons.show.push(button) : buttons.hide.push(button))

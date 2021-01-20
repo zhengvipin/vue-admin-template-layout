@@ -2,12 +2,12 @@
   <div class="ext-column-picker">
     <transition name="el-fade-in-linear">
       <el-popover
-          v-bind="popoverProps"
+        v-bind="popoverProps"
       >
         <div>
           <el-checkbox :value="checkAll" :indeterminate="indeterminate" @change="handleCheckAll">全选
           </el-checkbox>
-          <el-divider class="ext-column-picker__divider"/>
+          <el-divider class="ext-column-picker__divider" />
           <el-checkbox-group v-model="innerValue">
             <div v-for="(column,index) in innerColumns" :key="index">
               <el-checkbox :key="index" :label="column.prop" :disabled="column.disabled">
@@ -17,9 +17,9 @@
           </el-checkbox-group>
         </div>
         <el-dropdown slot="reference" class="ext-column-picker__dropdown" :hide-on-click="false" trigger="click">
-          <span>显示字段<i class="el-icon-arrow-down el-icon--right"/></span>
+          <span>显示字段<i class="el-icon-arrow-down el-icon--right" /></span>
           <!-- 记得设置el-dropdown-menu，否则会报错Cannot read property 'disabled' of null -->
-          <el-dropdown-menu class="ext-column-picker__dropdown-menu" slot="dropdown"/>
+          <el-dropdown-menu slot="dropdown" class="ext-column-picker__dropdown-menu" />
         </el-dropdown>
       </el-popover>
     </transition>

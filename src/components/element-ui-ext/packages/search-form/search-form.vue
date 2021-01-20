@@ -57,6 +57,7 @@ import { Tooltip, Link, Tag } from 'element-ui'
 import ExtToolbar from '../toolbar'
 import ExtForm from '../form'
 import { camelCaseObject } from '../utils'
+import { pickBy, cloneDeep, isNil, isArray } from 'lodash'
 
 const TOOLBAR_PROPS = ['buttons', 'rights', 'group', 'labelWidth', 'limit']
 const FORM_PROPS = ['model', 'items', 'gutter', 'labelWidth', 'right', 'top', 'left', 'bottom', 'span', 'gutter']
@@ -106,10 +107,10 @@ export default {
       return this.size || (this.$ELEMENT || {}).size || 'default'
     },
     innerMinHeight() {
-      return { default: 40, medium: 36, small: 32, mini: 28 }[this.searchSize] + 20 + 20 + 'px'
+      return {default: 40, medium: 36, small: 32, mini: 28}[this.searchSize] + 20 + 20 + 'px'
     },
     innerMaxHeight() {
-      return ({ default: 40, medium: 36, small: 32, mini: 28 }[this.searchSize] + 20) * 2 + 20 - 2 + 'px'
+      return ({default: 40, medium: 36, small: 32, mini: 28}[this.searchSize] + 20) * 2 + 20 - 2 + 'px'
     },
     classes() {
       return `ext-search-form ext-search-form--${this.searchSize}`
@@ -118,10 +119,10 @@ export default {
       return camelCaseObject(this.$attrs)
     },
     toolbarProps() {
-      return this.$lodash.pickBy(this.attrs, (value, key) => TOOLBAR_PROPS.indexOf(key) >= 0)
+      return pickBy(this.attrs, (value, key) => TOOLBAR_PROPS.indexOf(key) >= 0)
     },
     formProps() {
-      const props = this.$lodash.pickBy(this.attrs, (value, key) => FORM_PROPS.indexOf(key) >= 0)
+      const props = pickBy(this.attrs, (value, key) => FORM_PROPS.indexOf(key) >= 0)
       if (!this.showLabel) props.labelWidth = '0'
       if (!props.model) props.model = {}
       if (!props.items) props.items = []
@@ -140,12 +141,12 @@ export default {
   watch: {
     'formProps.items': {
       handler() {
-        const items = this.$lodash.cloneDeep(this.formProps.items)
+        const items = cloneDeep(this.formProps.items)
         // 查询表单不需要校验
         items.forEach(item => {
           delete item['required']
           delete item['rules']
-          if (this.$lodash.isNil(item.closable)) item.closable = true
+          if (isNil(item.closable)) item.closable = true
           if (!this.showLabel) {
             item.showLabel = false
             item.placeholder = item.label
@@ -178,7 +179,7 @@ export default {
       return isArray && value.join(',') || String(value || '')
     },
     resetField(item) {
-      this.formProps.model[item.prop] = this.$lodash.isArray(this.formProps.model[item.prop]) ? [] : undefined
+      this.formProps.model[item.prop] = isArray(this.formProps.model[item.prop]) ? [] : undefined
     },
     isRange(item) {
       return ['datetimerange', 'daterange', 'monthrange', 'timerange'].includes(item.type)

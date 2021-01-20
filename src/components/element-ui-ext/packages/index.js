@@ -1,8 +1,10 @@
-import _ from 'lodash'
+// 启动必须项
+import bootloader from './bootloader'
+// 指令
 import resize from 'vue-resize-directive'
 import permission from './directive/permission'
 import elDragDialog from './directive/el-drag-dialog'
-
+// 组件
 import ExtSelect from './select'
 import ExtRadio from './radio'
 import ExtCheckbox from './checkbox'
@@ -33,37 +35,11 @@ const components = [
   ExtDialog
 ]
 
-const install = function (Vue, opts = {}) {
-  const {getEnumList, getRoleList} = opts
+const install = function(Vue, opts = {}) {
+  // 初始化必要实例与方法
+  bootloader(Vue, opts)
 
-  /**
-   * 注册实例方法
-   */
-  // 注册 element-ext 实例对象
-  Vue.prototype.$elementExtOptions = {}
-
-  // 注册枚举请求方法
-  if (getEnumList) {
-    Vue.prototype.$elementExtOptions.getEnumList = getEnumList
-  }
-
-  // 注册用户角色请求方法
-  if (getRoleList) {
-    Vue.prototype.$elementExtOptions.getRoleList = getRoleList
-  }
-
-  Vue.prototype.$lodash = _
-
-  /**
-   * 注册全局指令
-   */
-  Vue.directive('resize', resize)
-  Vue.directive('permission', permission)
-  Vue.directive('elDragDialog', elDragDialog)
-
-  /**
-   * 注册自定义组件
-   */
+  // 注册自定义组件
   components.forEach(component => {
     component.install(Vue, opts)
   })
@@ -76,6 +52,9 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
+  resize,
+  permission,
+  elDragDialog,
   ExtSelect,
   ExtRadio,
   ExtCheckbox,
@@ -92,6 +71,9 @@ export default {
 }
 
 export {
+  resize,
+  permission,
+  elDragDialog,
   ExtSelect,
   ExtRadio,
   ExtCheckbox,

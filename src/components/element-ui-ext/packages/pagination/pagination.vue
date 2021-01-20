@@ -11,6 +11,7 @@
 <script>
 import { Pagination } from 'element-ui'
 import { camelCaseObject } from '../utils'
+import { cloneDeep } from 'lodash'
 
 export default {
   name: 'ExtPagination',
@@ -51,7 +52,7 @@ export default {
       }
     },
     bindingEvents() {
-      const events = this.$lodash.cloneDeep(this.$listeners)
+      const events = cloneDeep(this.$listeners)
       const currentChange = events['current-change']
       events['current-change'] = (page) => {
         this.innerCurrentPage = page

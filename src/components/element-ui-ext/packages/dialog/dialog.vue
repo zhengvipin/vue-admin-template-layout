@@ -20,11 +20,16 @@
 
 <script>
 import { Dialog } from 'element-ui'
+import elDragDialog from '../directive/el-drag-dialog'
 
 export default {
   name: 'ExtDialog',
+  directives: {
+    elDragDialog
+  },
   components: { ElDialog: Dialog },
   props: {
+    /* eslint-disable */
     visible: Boolean,
     title: String
   },

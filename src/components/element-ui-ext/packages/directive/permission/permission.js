@@ -1,11 +1,11 @@
-import Vue from 'vue'
-
 async function checkPermission(el, binding, vNode) {
   const { value } = binding
 
-  const roles = await Vue.prototype.$elementExtOptions()
+  let roles = []
 
-  if (!roles) return
+  if (vNode.context.$getRoleList) roles = await vNode.context.$getRoleList()
+
+  if (!roles.length) return
 
   if (value && value instanceof Array) {
     if (value.length > 0) {
@@ -24,15 +24,13 @@ async function checkPermission(el, binding, vNode) {
   }
 }
 
-function permission() {
-  return {
-    inserted(el, binding, vNode) {
-      checkPermission(el, binding, vNode).then(r => {})
-    },
-    update(el, binding, vNode) {
-      checkPermission(el, binding, vNode).then(r => {})
-    }
+export default {
+  inserted(el, binding, vNode) {
+    checkPermission(el, binding, vNode).then(() => {
+    })
+  },
+  update(el, binding, vNode) {
+    checkPermission(el, binding, vNode).then(() => {
+    })
   }
 }
-
-export default permission

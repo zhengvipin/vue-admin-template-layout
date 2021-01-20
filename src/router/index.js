@@ -90,10 +90,16 @@ export const constantRoutes = [
         meta: { title: 'Tree', icon: 'tree' }
       },
       {
-        path: 'checkbox',
-        name: 'Checkbox',
+        path: 'ext-checkbox',
+        name: 'ExtCheckbox',
         component: () => import('element-ui-ext/examples/docs/ext-checkbox.md'),
-        meta: { title: 'Checkbox', badge: 'New' }
+        meta: { title: 'ExtCheckbox', badge: 'New' }
+      },
+      {
+        path: 'ext-table',
+        name: 'ExtTable',
+        component: () => import('element-ui-ext/examples/docs/ext-table.md'),
+        meta: { title: 'ExtTable', badge: 'New' }
       },
       {
         path: 'button',

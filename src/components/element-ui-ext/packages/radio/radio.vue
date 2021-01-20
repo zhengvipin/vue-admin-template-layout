@@ -90,8 +90,8 @@ export default {
   },
   created() {
     if (this.enumKey && (!this.options || !this.options.length)) {
-      if (this.$elementExtOptions.getEnumList) {
-        this.$elementExtOptions.getEnumList([this.enumKey]).then(response => {
+      if (this.$getEnumList) {
+        this.$getEnumList([this.enumKey]).then(response => {
           this.innerOptions = this.generateOptions(response[this.enumKey] || [])
         })
       }
