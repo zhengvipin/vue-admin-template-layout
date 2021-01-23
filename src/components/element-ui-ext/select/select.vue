@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import { Select } from 'element-ui'
-import { getValueType, isObjectArray, camelCaseObject } from '../utils'
+import {Select} from 'element-ui'
+import {camelCaseObject, getValueType, isObjectArray} from '../utils'
 
 export default {
   name: 'ExtSelect',
@@ -105,7 +105,7 @@ export default {
         return options.map(option => {
           const value = option[this.innerProps.value]
           const label = option[this.innerProps.label]
-          return { label: label, value: valueType(value) }
+          return {...option, label: label, value: valueType(value)}
         })
       } else {
         return options.map(item => Object.assign({ label: item, value: item }))

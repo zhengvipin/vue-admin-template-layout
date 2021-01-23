@@ -39,6 +39,17 @@ export default {
              <li>只在 development 环境中加载 md</li>
             </ul>
           `
+        },
+        {
+          timestamp: '2021/01/21 22:00',
+          title: '组件优化及 bug 修复',
+          content: `
+            <ul>
+             <li>提供 ext-button、ext-radio、ext-checkbox 演示文档</li>
+             <li>修复 ext-radio 绑定属性 bug，由 v-bind="options" --> v-bind="option"</li>
+             <li>修复 ext-select、ext-radio、ext-checkbox 个体除了 label、value 以外属性绑定失败 bug</li>
+            </ul>
+          `
         }
       ]
     }
@@ -55,9 +66,13 @@ export default {
 
     > div {
       line-height: 24px;
+      font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 
       ul {
         padding: 0 16px;
+        li{
+          font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        }
       }
     }
   }

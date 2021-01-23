@@ -107,7 +107,9 @@ export default {
         return options.map(option => {
           const value = option[this.innerProps.value]
           const label = option[this.innerProps.label]
-          return { text: label, label: valueType(value) }
+          const newOption = { ...option, text: label, label: valueType(value) }
+          delete newOption['value']
+          return newOption
         })
       } else {
         return options.map(item => Object.assign({ text: item, label: item }))

@@ -7,12 +7,12 @@
   >
     <slot name="content">
       <template v-if="showButton">
-        <el-radio-button v-for="(option,index) in innerOptions" :key="index" v-bind="options">
+        <el-radio-button v-for="(option,index) in innerOptions" :key="index" v-bind="option">
           {{ option.text }}
         </el-radio-button>
       </template>
       <template v-else>
-        <el-radio v-for="(option,index) in innerOptions" :key="index" v-bind="options">
+        <el-radio v-for="(option,index) in innerOptions" :key="index" v-bind="option">
           {{ option.text }}
         </el-radio>
       </template>
@@ -106,7 +106,9 @@ export default {
         return options.map(option => {
           const value = option[this.innerProps.value]
           const label = option[this.innerProps.label]
-          return { text: label, label: valueType(value) }
+          const newOption = { ...option, text: label, label: valueType(value) }
+          delete newOption['value']
+          return newOption
         })
       } else {
         return options.map(item => Object.assign({ text: item, label: item }))

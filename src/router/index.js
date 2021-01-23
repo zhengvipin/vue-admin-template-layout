@@ -88,24 +88,6 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
-      },
-      {
-        path: 'ext-checkbox',
-        name: 'ExtCheckbox',
-        component: () => import('@/components/element-ui-ext/examples/docs/ext-checkbox.md'),
-        meta: { title: 'ExtCheckbox', badge: 'New' }
-      },
-      {
-        path: 'ext-table',
-        name: 'ExtTable',
-        component: () => import('@/components/element-ui-ext/examples/docs/ext-table.md'),
-        meta: { title: 'ExtTable', badge: 'New' }
-      },
-      {
-        path: 'button',
-        name: 'Button',
-        component: () => import('@/components/element-ui-ext/examples/docs/button.md'),
-        meta: { title: 'Button' }
       }
     ]
   },
@@ -149,83 +131,41 @@ export const constantRoutes = [
   }
 ]
 
+if (process.env.NODE_ENV === 'development') {
+  const exampleRouteItem = constantRoutes.find(route => route.name === 'Example')
+  exampleRouteItem.children = exampleRouteItem.children.concat([
+    {
+      path: 'ext-button',
+      name: 'ExtButton',
+      component: () => import('@/docs/ext-button.md'),
+      meta: { title: 'ExtButton 按钮' }
+    },
+    {
+      path: 'ext-radio',
+      name: 'ExtRadio',
+      component: () => import('@/docs/ext-radio.md'),
+      meta: { title: 'ExtRadio 单选框' }
+    },
+    {
+      path: 'ext-checkbox',
+      name: 'ExtCheckbox',
+      component: () => import('@/docs/ext-checkbox.md'),
+      meta: { title: 'ExtCheckbox 复选框' }
+    },
+    {
+      path: 'ext-table',
+      name: 'ExtTable',
+      component: () => import('@/docs/ext-table.md'),
+      meta: { title: 'ExtTable 表格' }
+    }
+  ])
+}
+
 /**
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
-export const asyncRoutes = [
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
-
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
-]
+export const asyncRoutes = []
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
