@@ -1,7 +1,3 @@
-const { Random } = require('mockjs')
-const { join } = require('path')
-const fs = require('fs')
-
 /**
  * @param {string} url
  * @returns {Object}
@@ -25,43 +21,28 @@ function param2Obj(url) {
 }
 
 /**
- * @author chuzhixin 1204505056@qq.com （不想保留author可删除）
- * @description 随机生成图片url。
- * @param width
- * @param height
- * @returns {string}
+ * This is just a simple version of deep copy
+ * Has a lot of edge cases bug
+ * If you want to use a perfect deep copy, use lodash's _.cloneDeep
+ * @param {Object} source
+ * @returns {Object}
  */
-function handleRandomImage(width = 50, height = 50) {
-  return `https://picsum.photos/${width}/${height}?random=${Random.guid()}`
-}
-
-/**
- * @author chuzhixin 1204505056@qq.com （不想保留author可删除）
- * @description 处理所有 controller 模块，npm run serve时在node环境中自动输出controller文件夹下Mock接口，请勿修改。
- * @returns {[]}
- */
-function handleMockArray() {
-  const mockArray = []
-  const getFiles = (jsonPath) => {
-    const jsonFiles = []
-    const findJsonFile = (path) => {
-      const files = fs.readdirSync(path)
-      files.forEach((item) => {
-        const fPath = join(path, item)
-        const stat = fs.statSync(fPath)
-        if (stat.isDirectory() === true) findJsonFile(item)
-        if (stat.isFile() === true) jsonFiles.push(item)
-      })
-    }
-    findJsonFile(jsonPath)
-    jsonFiles.forEach((item) => mockArray.push(`./controller/${item}`))
+function deepClone(source) {
+  if (!source && typeof source !== 'object') {
+    throw new Error('error arguments', 'deepClone')
   }
-  getFiles('mock/controller')
-  return mockArray
+  const targetObj = source.constructor === Array ? [] : {}
+  Object.keys(source).forEach(keys => {
+    if (source[keys] && typeof source[keys] === 'object') {
+      targetObj[keys] = deepClone(source[keys])
+    } else {
+      targetObj[keys] = source[keys]
+    }
+  })
+  return targetObj
 }
 
 module.exports = {
   param2Obj,
-  handleRandomImage,
-  handleMockArray
+  deepClone
 }

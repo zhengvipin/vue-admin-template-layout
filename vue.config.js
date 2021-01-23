@@ -1,51 +1,9 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/config/settings')
-const cheerio = require('cheerio')
-const md = require('markdown-it')()
-
-const striptags = {
-  strip: function(str, tags) {
-    const $ = cheerio.load(str, { decodeEntities: false })
-
-    if (!tags || tags.length === 0) {
-      return str
-    }
-
-    tags = !Array.isArray(tags) ? [tags] : tags
-    var len = tags.length
-
-    while (len--) {
-      $(tags[len]).remove()
-    }
-
-    return $.html()
-  },
-  fetch: function(str, tag) {
-    const $ = cheerio.load(str, { decodeEntities: false })
-    if (!tag) return str
-
-    return $(tag).html()
-  }
-}
 
 function resolve(dir) {
   return path.join(__dirname, dir)
-}
-
-const wrap = function(render) {
-  return function() {
-    return render.apply(this, arguments)
-      .replace('<code v-pre class="', '<code class="hljs ')
-      .replace('<code>', '<code class="hljs">')
-  }
-}
-
-function convert(str) {
-  str = str.replace(/(&#x)(\w{4});/gi, function($0) {
-    return String.fromCharCode(parseInt(encodeURIComponent($0).replace(/(%26%23x)(\w{4})(%3B)/g, '$2'), 16))
-  })
-  return str
 }
 
 const name = defaultSettings.title || 'vue Admin Template' // page title
@@ -133,52 +91,18 @@ module.exports = {
       })
       .end()
 
-    // set element-ui-ext demo
-    config.module
-      .rule('md')
-      .test(/\.md/)
-      .use('vue-loader')
-      .loader('vue-loader')
-      .end()
-      .use('vue-markdown-loader')
-      .loader('vue-markdown-loader/lib/markdown-compiler')
-      .options({
-        raw: true,
-        use: [
-          [require('markdown-it-container'), 'demo', {
-            validate: function(params) {
-              return params.trim().match(/^demo\s*(.*)$/)
-            },
-            render: function(tokens, idx) {
-              var m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
-              if (tokens[idx].nesting === 1) {
-                var description = (m && m.length > 1) ? m[1] : ''
-                var content = tokens[idx + 1].content
-                var html = convert(striptags.strip(content, ['script', 'style'])).replace(/(<[^>]*)=""(?=.*>)/g, '$1')
-                var script = striptags.fetch(content, 'script')
-                var style = striptags.fetch(content, 'style')
-                var jsfiddle = { html: html, script: script, style: style }
-                var descriptionHTML = description ? md.render(description) : ''
-                jsfiddle = md.utils.escapeHtml(JSON.stringify(jsfiddle))
-
-                return `<demo-block class="demo-box" :jsfiddle="${jsfiddle}">
-                        <div class="source" slot="source">${html}</div>
-                        ${descriptionHTML}
-                        <div class="highlight" slot="highlight">`
-              }
-              return '</div></demo-block>\n'
-            }
-          }],
-          [require('markdown-it-container'), 'tip'],
-          [require('markdown-it-container'), 'warning']
-        ],
-        preprocess: function(MarkdownIt, source) {
-          MarkdownIt.renderer.rules.table_open = function() {
-            return '<table class="demo-table">'
-          }
-          MarkdownIt.renderer.rules.fence = wrap(MarkdownIt.renderer.rules.fence)
-          return source
-        }
+    // 展示演示markdown文本
+    config
+      .when(process.env.NODE_ENV === 'development', config => {
+        config.module
+          .rule('md')
+          .test(/\.md/)
+          .use('vue-loader')
+          .loader('vue-loader')
+          .end()
+          .use('vue-markdown-loader')
+          .loader('vue-markdown-loader/lib/markdown-compiler')
+          .loader(resolve('./build/md-loader/index.js'))
       })
       .end()
 

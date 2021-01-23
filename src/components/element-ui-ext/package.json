@@ -1,9 +1,0 @@
-{
-  "name": "element-ui-ext",
-  "version": "2.0.0",
-  "description": "",
-  "main": "packages/index.js",
-  "keywords": ["element-ui"],
-  "author": "zhengvipin@gmail.com",
-  "license": "ISC"
-}

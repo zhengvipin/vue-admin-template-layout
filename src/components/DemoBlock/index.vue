@@ -1,24 +1,35 @@
 <template>
   <div
+    ref="demo"
     class="demo-block"
-    :class="[blockClass, { 'hover': hovering }]"
+    :class="[blockClass, { hover: hovering }]"
     @mouseenter="hovering = true"
     @mouseleave="hovering = false"
   >
-    <slot name="source" />
+    <!-- 源码运行 -->
+    <div class="source">
+      <slot name="source" />
+    </div>
+    <!-- 源码 -->
     <div ref="meta" class="meta">
+      <!-- 描述 -->
       <div v-if="$slots.default" class="description">
         <slot />
       </div>
-      <slot name="highlight" />
+      <!-- 源码 -->
+      <div class="highlight">
+        <slot name="highlight" />
+      </div>
     </div>
+    <!-- 源码 显示或者隐藏 -->
     <div
       ref="control"
       class="demo-block-control"
-      @click="isExpanded = !isExpanded"
+      :class="{ 'is-fixed': fixedControl }"
+      @click="handleExpand"
     >
       <transition name="arrow-slide">
-        <i :class="[iconClass, { 'hovering': hovering }]" />
+        <i :class="[iconClass, { hovering: hovering }]" />
       </transition>
       <transition name="text-slide">
         <span v-show="hovering">{{ controlText }}</span>
@@ -28,103 +39,66 @@
 </template>
 
 <script type="text/babel">
+import hljs from 'highlight.js'
+import 'highlight.js/styles/color-brewer.css'
+
 export default {
-  props: {
-    // eslint-disable-next-line vue/require-default-prop
-    jsfiddle: Object,
-    default: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
+  name: 'DemoBlock',
   data() {
     return {
+      once: true,
       hovering: false,
       isExpanded: false,
       fixedControl: false,
-      scrollParent: null,
-      langConfig: {
-        'hide-text': '隐藏代码',
-        'show-text': '显示代码',
-        'button-text': '在线运行',
-        'tooltip-text': '前往 jsfiddle.net 运行此示例'
-      }
+      scrollParent: null
     }
   },
-
   computed: {
     lang() {
       return this.$route.path.split('/')[1]
     },
-
     blockClass() {
-      return `demo-${this.lang} demo-${this.$router.currentRoute.path.split('/').pop()}`
+      return `demo-${this.lang} demo-${this.$router.currentRoute.path
+        .split('/')
+        .pop()}`
     },
-
     iconClass() {
       return this.isExpanded ? 'el-icon-caret-top' : 'el-icon-caret-bottom'
     },
-
     controlText() {
-      return this.isExpanded ? this.langConfig['hide-text'] : this.langConfig['show-text']
+      return this.isExpanded ? '隐藏代码' : '显示代码'
     },
-
     codeArea() {
       return this.$el.getElementsByClassName('meta')[0]
     },
-
     codeAreaHeight() {
       if (this.$el.getElementsByClassName('description').length > 0) {
-        return this.$el.getElementsByClassName('description')[0].clientHeight +
-          this.$el.getElementsByClassName('highlight')[0].clientHeight + 20
+        return (
+          this.$el.getElementsByClassName('description')[0].clientHeight +
+          this.$el.getElementsByClassName('highlight')[0].clientHeight +
+          20
+        )
       }
       return this.$el.getElementsByClassName('highlight')[0].clientHeight
     }
   },
-
   watch: {
     isExpanded(val) {
       this.codeArea.style.height = val ? `${this.codeAreaHeight + 1}px` : '0'
       if (!val) {
         this.fixedControl = false
         this.$refs.control.style.left = '0'
-        this.removeScrollHandler()
-        return
       }
-      setTimeout(() => {
-        this.scrollParent = document.querySelector('.page-component__scroll > .el-scrollbar__wrap')
-        this.scrollParent && this.scrollParent.addEventListener('scroll', this.scrollHandler)
-        this.scrollHandler()
-      }, 200)
     }
   },
-
-  mounted() {
-    this.$nextTick(() => {
-      const highlight = this.$el.getElementsByClassName('highlight')[0]
-      if (this.$el.getElementsByClassName('description').length === 0) {
-        highlight.style.width = '100%'
-        highlight.borderRight = 'none'
-      }
-    })
-  },
-
-  beforeDestroy() {
-    this.removeScrollHandler()
-  },
-
   methods: {
-    scrollHandler() {
-      // eslint-disable-next-line no-unused-vars
-      const { top, bottom, left } = this.$refs.meta.getBoundingClientRect()
-      this.fixedControl = bottom > document.documentElement.clientHeight &&
-        top + 44 <= document.documentElement.clientHeight
-    },
-
-    removeScrollHandler() {
-      this.scrollParent && this.scrollParent.removeEventListener('scroll', this.scrollHandler)
+    handleExpand() {
+      if (this.once) {
+        const blocks = this.$refs.demo.querySelectorAll('pre code')
+        Array.prototype.forEach.call(blocks, hljs.highlightBlock)
+        this.once = false
+      }
+      this.isExpanded = !this.isExpanded
     }
   }
 }
@@ -134,10 +108,11 @@ export default {
 .demo-block {
   border: solid 1px #ebebeb;
   border-radius: 3px;
-  transition: .2s;
+  transition: 0.2s;
 
   &.hover {
-    box-shadow: 0 0 8px 0 rgba(232, 237, 250, .6), 0 2px 4px 0 rgba(232, 237, 250, .5);
+    box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+    0 2px 4px 0 rgba(232, 237, 250, 0.5);
   }
 
   code {
@@ -157,7 +132,7 @@ export default {
     border-top: solid 1px #eaeefb;
     overflow: hidden;
     height: 0;
-    transition: height .2s;
+    transition: height 0.2s;
   }
 
   .description {
@@ -229,7 +204,7 @@ export default {
     i {
       font-size: 16px;
       line-height: 44px;
-      transition: .3s;
+      transition: 0.3s;
 
       &.hovering {
         transform: translateX(-40px);
@@ -241,12 +216,12 @@ export default {
       transform: translateX(-30px);
       font-size: 14px;
       line-height: 44px;
-      transition: .3s;
+      transition: 0.3s;
       display: inline-block;
     }
 
     &:hover {
-      color: #409EFF;
+      color: #409eff;
       background-color: #f9fafc;
     }
 
@@ -267,18 +242,54 @@ export default {
     }
   }
 
-  // by add
+  // by zwp add
   .hljs {
     line-height: 1.8;
-    font-family: Menlo,Monaco,Consolas,Courier,monospace !important;
+    font-family: Menlo, Monaco, Consolas, Courier, monospace;
     font-size: 12px;
     padding: 18px 24px;
     background-color: #fafafa;
-    border: 1px solid #eaeefb;
+    border: solid 1px #eaeefb;
     margin-bottom: 25px;
     border-radius: 4px;
-    -webkit-font-smoothing: auto;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+
+//doc 的 table 样式
+.element-doc table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #fff;
+  font-size: 14px;
+  margin-bottom: 45px;
+  line-height: 1.5em;
+
+  strong {
+    font-weight: normal;
   }
 
+  td,
+  th {
+    border-bottom: 1px solid #dcdfe6;
+    padding: 15px;
+    max-width: 250px;
+  }
+
+  th {
+    text-align: left;
+    white-space: nowrap;
+    color: #909399;
+    font-weight: normal;
+  }
+
+  td {
+    color: #606266;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 10px;
+  }
 }
 </style>

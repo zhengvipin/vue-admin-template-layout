@@ -1,12 +1,20 @@
 const Mock = require('mockjs')
-const { param2Obj, handleMockArray } = require('./utils')
+const { param2Obj } = require('./utils')
 
-const mocks = []
-const mockArray = handleMockArray()
-mockArray.forEach((item) => {
-  const obj = require(item)
-  mocks.push(...obj)
-})
+// require.context是基于webpack的功能的，所以这里没法使用
+const adApi = require('./controller/ad')
+const enumApi = require('./controller/enum')
+const routerApi = require('./controller/router')
+const tableApi = require('./controller/table')
+const userApi = require('./controller/user')
+
+const mocks = [
+  ...adApi,
+  ...enumApi,
+  ...routerApi,
+  ...tableApi,
+  ...userApi
+]
 
 // for front mock
 // please use it cautiously, it will redefine XMLHttpRequest,
