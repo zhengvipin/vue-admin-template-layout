@@ -49,7 +49,6 @@ import ExtColumnPicker from '../column-picker'
 import { camelCaseObject, transEnumName } from '../utils'
 import { pickBy, isNil } from 'lodash'
 
-const DEFAULT_VALUE = '--'
 const PAGINATION_PROPS = ['small', 'background', 'pageSize', 'currentPage', 'total', 'pageCount', 'layout', 'pageSizes', 'prevText', 'nextText', 'hideOnSinglePage']
 
 export default {
@@ -148,13 +147,12 @@ export default {
       if (!isNil(props.total)) this.innerTotal = props.total
       return {
         currentPage: 1,
-        pageSize: 20,
-        pageSizes: [20, 50, 100],
-        layout: 'prev, pager, next, jumper, sizes, total',
+        pageSizes: (this.$elementExt || {}).pageSizes || [20, 50, 100],
+        layout: (this.$elementExt || {}).layout || 'prev, pager, next, jumper, sizes, total',
         // background: true,
         small: false,
         align: 'right',
-        // hideOnSinglePage: true,
+        hideOnSinglePage: true,
         ...props
       }
     },
@@ -276,14 +274,14 @@ export default {
   methods: {
     getWholeEnums(columns) {
       const keys = columns.filter(item => !!item.enumKey).map(item => item.enumKey)
-      if (keys.length && this.$getEnumList) {
-        this.$getEnumList(keys).then(response => {
+      if (keys.length && (this.$elementExt || {}).getEnumList) {
+        this.$elementExt.getEnumList(keys).then(response => {
           columns.forEach(column => {
             if (column.enumKey && !column.formatter) {
               const enumValue = response[column.enumKey] || []
               column.formatter = (row, col, val) => {
-                if (isNil(val)) return DEFAULT_VALUE
-                return transEnumName(enumValue, val, DEFAULT_VALUE)
+                if (isNil(val)) return (this.$elementExt || {}).defaultValue || '--'
+                return transEnumName(enumValue, val, (this.$elementExt || {}).defaultValue || '--')
               }
             }
           })

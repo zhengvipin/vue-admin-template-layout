@@ -24,10 +24,8 @@ export default {
       activities: [
         {
           timestamp: '2021/01/21 12:16',
-          title: '修复 “s.readdirSync is not a function”',
-          content: `
-            去除 mock/index.js 中利用 node 内置 fs 模块批量加载 js 的代码,也无法使用 webpack 环境独有的 require.context 方法加载，暂时没有想到替代方法，这是由于生产包部署在 tomcat 缺乏 node 环境
-          `
+          title: '处理 s.readdirSync is not a function 报错',
+          content: `去除 mock/index.js 中利用 node 内置 fs 模块批量加载 js 的代码,也无法使用 webpack 环境独有的 require.context 方法加载，暂时没有想到替代方法，这是由于生产包部署在 tomcat 缺乏 node 环境`
         },
         {
           timestamp: '2021/01/21 19:04',
@@ -50,6 +48,26 @@ export default {
              <li>修复 ext-select、ext-radio、ext-checkbox 个体除了 label、value 以外属性绑定失败 bug</li>
             </ul>
           `
+        },
+        {
+          timestamp: '2021/01/22 10:57',
+          title: '组件优化及 bug 修复',
+          content: `ext-form-item绑定属性事件时，巧用 bind 实现改变方法指向为当前 Vue 实例但不直接调用的效果`
+        },
+        {
+          timestamp: '2021/01/22 17:25',
+          title: '组件优化及 bug 修复',
+          content: `
+            <ul>
+             <li>ext-form 选择自适应时，添加 loading 效果，这里看后续实际效果，决定是否需要</li>
+             <li>ext-from、ext-form-item 增加是否展示行内表单校验信息的属性 inline-error</li>
+            </ul>
+          `
+        },
+        {
+          timestamp: '2021/01/22 19:04',
+          title: '组件优化及 bug 修复',
+          content: `为 ext-form-item 注册Vue实例对象 elementExt，实现参数可配置化`
         }
       ]
     }
@@ -57,6 +75,7 @@ export default {
 }
 </script>
 
+// 考虑实现其他组件参数的可配置化
 <style lang="scss" scoped>
 ::v-deep {
   .el-timeline-item__content {
@@ -66,12 +85,13 @@ export default {
 
     > div {
       line-height: 24px;
-      font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 
       ul {
         padding: 0 16px;
-        li{
-          font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+
+        li {
+          font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
         }
       }
     }

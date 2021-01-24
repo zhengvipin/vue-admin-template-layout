@@ -141,6 +141,12 @@ if (process.env.NODE_ENV === 'development') {
       meta: { title: 'ExtButton 按钮' }
     },
     {
+      path: 'ext-toolbar',
+      name: 'ExtToolbar',
+      component: () => import('@/docs/ext-toolbar.md'),
+      meta: { title: 'ExtToolbar 工具栏' }
+    },
+    {
       path: 'ext-radio',
       name: 'ExtRadio',
       component: () => import('@/docs/ext-radio.md'),
@@ -153,10 +159,46 @@ if (process.env.NODE_ENV === 'development') {
       meta: { title: 'ExtCheckbox 复选框' }
     },
     {
+      path: 'ext-select',
+      name: 'ExSelect',
+      component: () => import('@/docs/ext-select.md'),
+      meta: { title: 'ExSelect 选择器' }
+    },
+    {
       path: 'ext-table',
       name: 'ExtTable',
       component: () => import('@/docs/ext-table.md'),
       meta: { title: 'ExtTable 表格' }
+    },
+    {
+      path: 'ext-time-picker',
+      name: 'ExtTimePicker',
+      component: () => import('@/docs/ext-time-picker.md'),
+      meta: { title: 'ExtTimePicker 时间选择器' }
+    },
+    {
+      path: 'ext-form-item',
+      name: 'ExtFormItem',
+      component: () => import('@/docs/ext-form-item.md'),
+      meta: { title: 'ExtFormItem 表单项' }
+    },
+    {
+      path: 'ext-form',
+      name: 'ExtForm',
+      component: () => import('@/docs/ext-form.md'),
+      meta: { title: 'ExtForm 表单' }
+    },
+    {
+      path: 'ext-search-form',
+      name: 'ExtSearchForm',
+      component: () => import('@/docs/ext-search-form.md'),
+      meta: { title: 'ExtSearchForm 查询表单' }
+    },
+    {
+      path: 'ext-pagination',
+      name: 'ExtPagination',
+      component: () => import('@/docs/ext-pagination.md'),
+      meta: { title: 'ExtPagination 分页栏' }
     }
   ])
 }

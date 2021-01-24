@@ -1,8 +1,9 @@
 <template>
   <div class="ext-form">
     <el-form
-      v-if="bindingProps.inline"
+      v-if="inline"
       ref="elForm"
+      v-loading="loading"
       :style="style"
       :model="model"
       v-bind="bindingProps"
@@ -79,7 +80,7 @@
       </template>
       <slot />
     </el-form>
-    <el-row v-else :gutter="gutter" justify="space-between">
+    <el-row v-else v-loading="loading" :gutter="gutter" justify="space-between">
       <el-form
         ref="elForm"
         v-resize:debounce.50.initial="resize"
@@ -190,6 +191,7 @@ export default {
       type: Number,
       default: 0
     },
+    inline: Boolean,
     top: {
       type: Number,
       default: 0
@@ -216,10 +218,12 @@ export default {
       type: Number,
       default: 10
     },
+    inlineError: Boolean,
     readonly: Boolean
   },
   data() {
     return {
+      loading: false,
       elForm: null,
       innerSpan: 0,
       activeNames: [],
@@ -250,7 +254,11 @@ export default {
   watch: {
     span: {
       handler(val) {
-        this.innerSpan = (val < 1 || val > 24) && 24 || val
+        this.loading = true
+        this.innerSpan = (val < 1 || val > 24) && 8 || val
+        setTimeout(() => {
+          this.loading = false
+        }, 500)
         this.emitFormChange()
       },
       immediate: true // 初始化就要实例化innerSpan
@@ -275,6 +283,7 @@ export default {
      */
     resize() {
       if ((this.span < 1 || this.span > 24) && this.elForm) {
+        this.loading = true
         const width = this.elForm.$el.clientWidth
         if (width <= 768) {
           this.innerSpan = 24
@@ -287,6 +296,9 @@ export default {
         } else {
           this.innerSpan = 4
         }
+        setTimeout(() => {
+          this.loading = false
+        }, 500)
       }
       this.emitFormChange()
     },
@@ -305,11 +317,11 @@ export default {
     getWholeEnums(items) {
       const keys = items.filter(item => !!item.enumKey).map(item => item.enumKey)
       if (keys.length) {
-        if (this.$getEnumList) {
-          this.$getEnumList(keys).then(response => {
+        if ((this.$elementExt || {}).getEnumList) {
+          this.$elementExt.getEnumList(keys).then(response => {
             items.forEach(item => {
               const enumValue = response[item.enumKey] || []
-              if (item.enumKey) item.data = enumValue
+              if (item.enumKey) item.options = enumValue
             })
             this.$forceUpdate() // 强制更新一次dom，避免枚举渲染失败
           })
@@ -328,7 +340,9 @@ export default {
         if (item.type === 'divider') indexArr.push(index)
         // 1.2 切换表单只读状态
         item.readonly = isNil(item.readonly) ? this.readonly : item.readonly
-        // 1.3 合并校验规则
+        // 1.3 切换校验信息是否行内显示
+        item.inlineError = isNil(item.inlineError) ? this.inlineError : item.inlineError
+        // 1.4 合并校验规则
         const formItemRules = this.bindingProps.rules[item.prop]
         const itemRules = item.rules
         if (formItemRules) {
@@ -376,14 +390,8 @@ export default {
       this.activeNames = multiItems.map((item, index) => index)
     },
     getItemEvents(item) {
-      const events = cloneDeep(item.events || {}) // 内部封装就好，不要改变items
-      const handleEnter = events.enter
-      // 配合 ExtSearchForm 实现 Enter 搜索
-      events.enter = () => {
-        this.$emit('search')
-        if (handleEnter) handleEnter.call(this)
-      }
-      return events
+      item.enter = () => this.$emit('search', this.model[item.prop])// fixme:配合ExtSearchForm绑定Enter键的search事件
+      return item
     }
   }
 }

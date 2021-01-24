@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     searchSize() {
-      return this.size || (this.$ELEMENT || {}).size || 'default'
+      return this.size || (this.$elementExt || {}).size || 'default'
     },
     innerMinHeight() {
       return {default: 40, medium: 36, small: 32, mini: 28}[this.searchSize] + 20 + 20 + 'px'
@@ -251,7 +251,7 @@ export default {
 
   .ext-search-form__content {
     border-radius: 0;
-    transition: height linear .3s;
+    transition: height linear .2s;
     border: 1px solid #F2F6FC;
   }
 

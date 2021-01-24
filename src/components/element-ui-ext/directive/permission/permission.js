@@ -3,7 +3,7 @@ async function checkPermission(el, binding, vNode) {
 
   let roles = []
 
-  if (vNode.context.$getRoleList) roles = await vNode.context.$getRoleList()
+  if (vNode.context.$getRoleList) roles = await (vNode.context.$elementExt || {}).getRoleList()
 
   if (!roles.length) return
 

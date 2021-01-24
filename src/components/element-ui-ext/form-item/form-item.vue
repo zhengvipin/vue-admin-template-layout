@@ -1,6 +1,7 @@
 <template>
   <el-form-item
     class="ext-form-item"
+    :class="{'ext-inline-error':inlineError}"
     v-bind="bindingLabelProps"
   >
     <template #label>
@@ -102,9 +103,10 @@ import ExtRadio from '../radio'
 import ExtCheckbox from '../checkbox'
 import ExtTimePicker from '../time-picker'
 import { camelCaseObject } from '../utils'
-import { pickBy, cloneDeep, isNil, isArray, find } from 'lodash'
+import { pickBy, cloneDeep, isNil, isArray, find, keys } from 'lodash'
 
 const LABEL_PROPS = ['prop', 'label', 'label-width', 'labelWidth', 'required', 'rules', 'inline-message', 'inlineMessage']
+const FORM_ITEM_EVENTS = ['change', 'blur', 'focus', 'clear', 'visible-change', 'remove-tag', 'expand-change', 'input', 'enter'] // todo：这里是硬编码，后续自定义属性不要和这里冲突
 
 export default {
   name: 'ExtFormItem',
@@ -138,6 +140,11 @@ export default {
     showLabel: {
       type: Boolean,
       default: true
+    },
+    // 是否行内展示校验信息
+    inlineError: {
+      type: Boolean,
+      default: false
     },
     // 配合ExtForm组件使用，标识是否作为ExtForm的子组件存在
     formItem: {
@@ -341,10 +348,9 @@ export default {
       return props
     },
     bindingEvents() {
-      return {
-        ...this.listeners,
-        ...this.events
-      }
+      const events = {...this.$listeners}
+      FORM_ITEM_EVENTS.filter(d => keys(this.$attrs).indexOf(d) > 0).forEach(d => events[d] = this.$attrs[d].bind(this))//fixme：这里巧用 bind 改变指向但是不直接调用
+      return events
     }
   }
 }
@@ -391,5 +397,31 @@ export default {
       }
     }
   }
+
+  &.ext-inline-error {
+    .ext-form-item__content {
+      // 调整错误提示出现位置，改为内联展示
+      ::v-deep ~ .el-form-item__error {
+        font-size: 10px;
+        top: 9px;
+        left: unset !important;
+        right: 30px !important;
+        opacity: 1;
+        transition: opacity ease-in-out 0.6s;
+
+        &:hover {
+          opacity: 0;
+        }
+      }
+
+      // hover隐藏错误提示
+      &:hover {
+        ::v-deep ~ .el-form-item__error {
+          opacity: 0;
+        }
+      }
+    }
+  }
 }
+
 </style>

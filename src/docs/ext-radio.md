@@ -34,6 +34,32 @@
 
 :::
 
+### 字符串数组
+
+字符串数组渲染单选框列表。
+
+:::demo 字符串数组渲染多选框列表时，`v-model`绑定的值取的是字符串本身。
+
+```html
+
+<template>
+  <ext-radio v-model="value" :options="options"/>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: '小米',
+        options: ['百度','腾讯','阿里','小米']
+      }
+    }
+  }
+</script>
+```
+
+:::
+
 ### 请求枚举
 
 动态渲染枚举单选框列表。
@@ -91,7 +117,7 @@
 
 :::
 
-### Radio Attributes
+### ExtRadio Attributes
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |  ----  | ----  |  ----  | ----  |  ----  |
@@ -101,7 +127,7 @@
 | enumKey | 枚举类型，配合vuex，需支持异步枚举请求 | String | - | - |
 | showButton | 按钮样式 | Boolean | - | false |
 
-### Props
+### ExtRadio Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |  ----  | ----  |  ----  | ----  |  ----  |

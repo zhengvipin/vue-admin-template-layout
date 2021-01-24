@@ -18,7 +18,7 @@
   export default {
     data() {
       return {
-        value: [],
+        value: [1],
         options: [
           {value: 1, label: '奶茶三兄弟'},
           {value: 2, label: '金桔柠檬茶'},
@@ -26,6 +26,32 @@
           {value: 4, label: '布丁巧克力'},
           {value: 5, label: '焦糖玛奇朵'}
         ]
+      }
+    }
+  }
+</script>
+```
+
+:::
+
+### 字符串数组
+
+字符串数组渲染多选框列表。
+
+:::demo 字符串数组渲染多选框列表时，`v-model`绑定的值取的是字符串本身。
+
+```html
+
+<template>
+  <ext-checkbox v-model="value" :options="options"/>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: ['小米'],
+        options: ['百度','腾讯','阿里','小米']
       }
     }
   }
@@ -91,7 +117,7 @@
 
 :::
 
-### Checkbox Attributes
+### ExtCheckbox Attributes
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |  ----  | ----  |  ----  | ----  |  ----  |
@@ -101,7 +127,7 @@
 | enumKey | 枚举类型，配合vuex，需支持异步枚举请求 | String | - | - |
 | showButton | 按钮样式 | Boolean | - | false |
 
-### Props
+### ExtCheckbox Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |  ----  | ----  |  ----  | ----  |  ----  |

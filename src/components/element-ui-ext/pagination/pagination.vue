@@ -48,6 +48,9 @@ export default {
     },
     bindingProps() {
       return {
+        pageSize: (this.$elementExt || {}).pageSize || 20,
+        pageSizes: (this.$elementExt || {}).pageSizes || [20, 50, 100],
+        layout: (this.$elementExt || {}).layout || 'prev, pager, next, jumper, sizes, total',
         ...this.attrs
       }
     },
