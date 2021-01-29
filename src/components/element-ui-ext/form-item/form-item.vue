@@ -91,7 +91,7 @@
         v-bind="bindingProps"
         v-on="bindingEvents"
       />
-      <span v-else class="ext-form-item__content" />
+      <span v-else class="ext-form-item__content" v-html="innerValue"/>
     </slot>
   </el-form-item>
 </template>
@@ -103,7 +103,7 @@ import ExtRadio from '../radio'
 import ExtCheckbox from '../checkbox'
 import ExtTimePicker from '../time-picker'
 import { camelCaseObject } from '../utils'
-import { pickBy, cloneDeep, isNil, isArray, find, keys } from 'lodash'
+import { pickBy, cloneDeep, isArray, find, keys } from 'lodash'
 
 const LABEL_PROPS = ['prop', 'label', 'label-width', 'labelWidth', 'required', 'rules', 'inline-message', 'inlineMessage']
 const FORM_ITEM_EVENTS = ['change', 'blur', 'focus', 'clear', 'visible-change', 'remove-tag', 'expand-change', 'input', 'enter'] // todo：这里是硬编码，后续自定义属性不要和这里冲突
@@ -319,15 +319,18 @@ export default {
     },
     bindingLabelProps() {
       const props = cloneDeep(this.labelProps)
-      if (!isNil(props.required)) return props
-      // 动态拼接required规则
-      const rules = props.rules
-      if (rules) {
-        const newRule = {required: true, message: props.label + '不能为空', trigger: 'change'}
-        if (isArray(rules)) {
-          if (!find(rules, {required: true})) rules.push(newRule)
+      // 合并校验规则
+      const {required, rules, label} = props
+      const requiredRule = {required: true, message: label + '不能为空', trigger: 'change'}
+      if (required) {
+        if (rules) {
+          if (isArray(rules)) {
+            if (!find(rules, {required: true})) rules.push(requiredRule)
+          } else {
+            if (!rules.required) props.rules = [rules, requiredRule]
+          }
         } else {
-          if (!rules.required) props.rules = [rules, newRule]
+          props.rules = requiredRule
         }
         props.required = false
         props.disabled = false
@@ -361,27 +364,6 @@ export default {
   .ext-form-item__content {
     width: 100% !important;
 
-    // 调整错误提示出现位置，改为内联展示
-    //::v-deep ~ .el-form-item__error {
-    //  font-size: 10px;
-    //  top: 9px;
-    //  left: unset !important;
-    //  right: 30px !important;
-    //  opacity: 1;
-    //  transition: opacity ease-in-out 0.6s;
-    //
-    //  &:hover {
-    //    opacity: 0;
-    //  }
-    //}
-    //
-    //// hover隐藏错误提示
-    //&:hover {
-    //  ::v-deep ~ .el-form-item__error {
-    //    opacity: 0;
-    //  }
-    //}
-
     // number组件初始隐藏加减控件，hover才显示
     &.el-input-number {
       ::v-deep .el-input-number__decrease, ::v-deep .el-input-number__increase {
@@ -399,10 +381,13 @@ export default {
   }
 
   &.ext-inline-error {
+    margin-bottom: 12px;
+
     .ext-form-item__content {
       // 调整错误提示出现位置，改为内联展示
       ::v-deep ~ .el-form-item__error {
         font-size: 10px;
+        -webkit-transform: scale(0.8);
         top: 9px;
         left: unset !important;
         right: 30px !important;
@@ -421,6 +406,30 @@ export default {
         }
       }
     }
+
+    // todo: 需要校验
+    //::v-deep .el-form-item__content {
+    //  .el-form-item__error {
+    //    font-size: 10px;
+    //    -webkit-transform: scale(0.8);
+    //    top: 9px;
+    //    left: unset !important;
+    //    right: 30px !important;
+    //    opacity: 1;
+    //    transition: opacity ease-in-out 0.6s;
+    //
+    //    &:hover {
+    //      opacity: 0;
+    //    }
+    //  }
+    //
+    //  // hover隐藏错误提示
+    //  &:hover {
+    //    ::v-deep ~ .el-form-item__error {
+    //      opacity: 0;
+    //    }
+    //  }
+    //}
   }
 }
 

@@ -68,6 +68,16 @@ export default {
           timestamp: '2021/01/22 19:04',
           title: '组件优化及 bug 修复',
           content: `为 ext-form-item 注册Vue实例对象 elementExt，实现参数可配置化`
+        },
+        {
+          timestamp: '2021/01/23 11:34',
+          title: '组件优化及 bug 修复',
+          content: `ext-table 表头颜色可配置化，headerBgColor`
+        },
+        {
+          timestamp: '2021/01/24 09:52',
+          title: '组件优化及 bug 修复',
+          content: `ext-form-item 重写合并检验规则逻辑代码`
         }
       ]
     }

@@ -257,7 +257,7 @@ export default {
 }
 
 //doc 的 table 样式
-.element-doc table {
+.element-doc table:not(.el-table__header) {
   border-collapse: collapse;
   width: 100%;
   background-color: #fff;

@@ -71,7 +71,7 @@
   opacity: 0.4;
 }
 
-.element-doc table {
+.element-doc table:not(.el-table__header) {
   border-collapse: collapse;
   width: 100%;
   background-color: #fff;

@@ -107,7 +107,7 @@ label属性为不可见状态。
 ```html
 
 <template>
-  <ext-search-form :model="model" :items="items" :span="12" :buttons="buttons"/>
+  <ext-search-form :model="model" :items="items" :span="12" :buttons="buttons" @search="handleSearch"/>
 </template>
 
 <script>
@@ -156,6 +156,11 @@ label属性为不可见状态。
           icon: 'el-icon-search'
         }]
       }
+    },
+    methods: {
+      handleSearch() {
+        this.$message(JSON.stringify(this.model))
+      }
     }
   }
 </script>
@@ -173,3 +178,9 @@ label属性为不可见状态。
 | type | 更多模式 | String | - | icon |
 | showLabel | 是否展示标题 | Boolean | - | true |
 | maxHeight | 更多内容区最大高度 | String | - | 0 |
+
+### ExtSearchForm Events
+
+| 事件名称 | 说明 | 回调参数 |
+|  ----  | ----  |  ----  | 
+| search | input/number 类型表单项 enter 键入时会触发 | - |

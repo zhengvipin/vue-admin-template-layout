@@ -102,6 +102,15 @@ module.exports = {
           .end()
           .use('vue-markdown-loader')
           .loader('vue-markdown-loader/lib/markdown-compiler')
+          .options({
+            preprocess: function(MarkdownIt, source) {
+              MarkdownIt.renderer.rules.table_open = function() {
+                return '<table class="demo-table">'
+              }
+              // MarkdownIt.renderer.rules.fence = wrap(MarkdownIt.renderer.rules.fence)
+              // return source
+            }
+          })
           .loader(resolve('./build/md-loader/index.js'))
       })
       .end()

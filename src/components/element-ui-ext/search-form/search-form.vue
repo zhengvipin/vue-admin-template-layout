@@ -32,7 +32,7 @@
     <el-card class="ext-search-form__content" shadow="never" :style="wrapStyle">
       <!-- 革命性的进步，解决了插槽多级传递的问题 -->
       <ext-form
-        ref="extForm"
+        ref="extForm"s
         :items="innerItems"
         v-bind="formProps"
         @form-change="formChange"
@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     searchSize() {
-      return this.size || (this.$elementExt || {}).size || 'default'
+      return this.size || (this.$ELEMENT || {}).size || 'default'
     },
     innerMinHeight() {
       return {default: 40, medium: 36, small: 32, mini: 28}[this.searchSize] + 20 + 20 + 'px'

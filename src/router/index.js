@@ -165,12 +165,6 @@ if (process.env.NODE_ENV === 'development') {
       meta: { title: 'ExSelect 选择器' }
     },
     {
-      path: 'ext-table',
-      name: 'ExtTable',
-      component: () => import('@/docs/ext-table.md'),
-      meta: { title: 'ExtTable 表格' }
-    },
-    {
       path: 'ext-time-picker',
       name: 'ExtTimePicker',
       component: () => import('@/docs/ext-time-picker.md'),
@@ -198,7 +192,13 @@ if (process.env.NODE_ENV === 'development') {
       path: 'ext-pagination',
       name: 'ExtPagination',
       component: () => import('@/docs/ext-pagination.md'),
-      meta: { title: 'ExtPagination 分页栏' }
+      meta: { title: 'ExtPagination 分页' }
+    },
+    {
+      path: 'ext-table',
+      name: 'ExtTable',
+      component: () => import('@/docs/ext-table.md'),
+      meta: { title: 'ExtTable 表格' }
     }
   ])
 }

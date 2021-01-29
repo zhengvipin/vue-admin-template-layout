@@ -203,12 +203,14 @@ limit属性控制直接展现的按钮的数量，其余按钮以“更多”形
 
 <template>
   <ext-toolbar :buttons="buttons"/>
+  <ext-dialog :visible.sync="visible">你好 </ext-dialog>
 </template>
 
 <script>
   export default {
     data() {
       return {
+        visible:false,
         buttons: [
           {
             name: '新增',

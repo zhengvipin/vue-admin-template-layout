@@ -147,6 +147,7 @@ export default {
       if (!isNil(props.total)) this.innerTotal = props.total
       return {
         currentPage: 1,
+        pageSize: (this.$elementExt || {}).pageSize || 20,
         pageSizes: (this.$elementExt || {}).pageSizes || [20, 50, 100],
         layout: (this.$elementExt || {}).layout || 'prev, pager, next, jumper, sizes, total',
         // background: true,
@@ -181,7 +182,8 @@ export default {
     tableProps() {
       return {
         border: true,
-        headerCellClassName: 'ext-table-check-all ' + (this.multiple ? '' : 'ext-table-check-all--hidden'),
+        headerCellClassName: 'ext-table-th ' + (this.multiple ? '' : 'ext-table-th--hidden'),
+        headerRowStyle: { backgroundColor: (this.$elementExt || {}).headerBgColor || '#DCDFE6' },
         style: { width: '100%' },
         ...this.attrs
       }
@@ -348,11 +350,11 @@ export default {
   }
 
   // 表头背景色
-  ::v-deep .ext-table-check-all {
-    background-color: #DCDFE6 !important;
+  ::v-deep .ext-table-th {
+    background-color: unset;
   }
 
-  ::v-deep .ext-table-check-all--hidden > .cell > .el-checkbox {
+  ::v-deep .ext-table-th--hidden > .cell > .el-checkbox {
     display: none;
   }
 }
