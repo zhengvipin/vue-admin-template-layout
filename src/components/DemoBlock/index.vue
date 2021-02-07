@@ -8,17 +8,17 @@
   >
     <!-- 源码运行 -->
     <div class="source">
-      <slot name="source"/>
+      <slot name="source" />
     </div>
     <!-- 源码 -->
     <div ref="meta" class="meta">
       <!-- 描述 -->
       <div v-if="$slots.default" class="description">
-        <slot/>
+        <slot />
       </div>
       <!-- 源码 -->
       <div class="highlight">
-        <slot name="highlight"/>
+        <slot name="highlight" />
       </div>
     </div>
     <!-- 源码 显示或者隐藏 -->
@@ -29,7 +29,7 @@
       @click="handleExpand"
     >
       <transition name="arrow-slide">
-        <i :class="[iconClass, { hovering: hovering }]"/>
+        <i :class="[iconClass, { hovering: hovering }]" />
       </transition>
       <transition name="text-slide">
         <span v-show="hovering">{{ controlText }}</span>
@@ -285,6 +285,7 @@ export default {
 
   td {
     color: #606266;
+    word-break: break-all;
   }
 
   th:first-child,

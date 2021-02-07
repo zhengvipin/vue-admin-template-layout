@@ -91,7 +91,7 @@
         v-bind="bindingProps"
         v-on="bindingEvents"
       />
-      <span v-else class="ext-form-item__content" v-html="innerValue"/>
+      <span v-else class="ext-form-item__content" v-html="innerValue" />
     </slot>
   </el-form-item>
 </template>
