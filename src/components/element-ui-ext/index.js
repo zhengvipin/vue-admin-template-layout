@@ -18,6 +18,7 @@ import ExtColumnPicker from './column-picker'
 import ExtPagination from './pagination'
 import ExtTable from './table'
 import ExtDialog from './dialog'
+import ExtTreeSelect from './tree-select'
 
 const components = [
   ExtSelect,
@@ -32,7 +33,8 @@ const components = [
   ExtColumnPicker,
   ExtPagination,
   ExtTable,
-  ExtDialog
+  ExtDialog,
+  ExtTreeSelect
 ]
 
 const install = function(Vue, opts = {}) {
@@ -55,36 +57,12 @@ export default {
   resize,
   permission,
   elDragDialog,
-  ExtSelect,
-  ExtRadio,
-  ExtCheckbox,
-  ExtTimePicker,
-  ExtFormItem,
-  ExtForm,
-  ExtSearchForm,
-  ExtButton,
-  ExtToolbar,
-  ExtColumnPicker,
-  ExtPagination,
-  ExtTable,
-  ExtDialog
+  ...components
 }
 
-export {
+export const temp = {
   resize,
   permission,
   elDragDialog,
-  ExtSelect,
-  ExtRadio,
-  ExtCheckbox,
-  ExtTimePicker,
-  ExtFormItem,
-  ExtForm,
-  ExtSearchForm,
-  ExtButton,
-  ExtToolbar,
-  ExtColumnPicker,
-  ExtPagination,
-  ExtTable,
-  ExtDialog
+  ...components
 }
