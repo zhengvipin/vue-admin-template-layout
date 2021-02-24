@@ -153,7 +153,7 @@ export default {
         // background: true,
         small: false,
         align: 'right',
-        hideOnSinglePage: true,
+        // hideOnSinglePage: true,
         ...props
       }
     },

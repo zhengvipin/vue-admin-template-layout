@@ -14,6 +14,12 @@
         {{ title }}
       </slot>
     </div>
+    <div
+      v-if="$slots.footer"
+      slot="footer"
+    >
+      <slot name="footer" />
+    </div>
     <slot />
   </el-dialog>
 </template>

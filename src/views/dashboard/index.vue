@@ -9,7 +9,7 @@
           placement="top"
         >
           <h4>{{ activity.title }}</h4>
-          <div v-html="activity.content" />
+          <div v-html="activity.content"/>
         </el-timeline-item>
       </el-timeline>
     </el-card>
@@ -78,6 +78,16 @@ export default {
           timestamp: '2021/01/24 09:52',
           title: '组件优化及 bug 修复',
           content: `ext-form-item 重写合并检验规则逻辑代码`
+        },
+        {
+          timestamp: '2021/02/24 15:14',
+          title: '组件优化及 bug 修复',
+          content: `
+             <ul>
+             <li>ext-table 的 hideOnSinglePage 属性默认为 false</li>
+             <li>ext-dialog 添加 footer 插槽</li>
+             <li>elementExt 导出 transEnumName 方法</li>
+            </ul>`
         }
       ]
     }

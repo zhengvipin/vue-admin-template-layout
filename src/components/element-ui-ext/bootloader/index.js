@@ -1,5 +1,8 @@
+import { transEnumName } from '../utils'
+
 export default function(Vue, opts = {}) {
   Vue.prototype.$elementExt = {
+    transEnumName,
     size: opts.size,
     pageSize: opts.pageSize,
     pageSizes: opts.pageSizes,
