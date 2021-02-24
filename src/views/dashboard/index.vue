@@ -9,7 +9,7 @@
           placement="top"
         >
           <h4>{{ activity.title }}</h4>
-          <div v-html="activity.content"/>
+          <div v-html="activity.content" />
         </el-timeline-item>
       </el-timeline>
     </el-card>

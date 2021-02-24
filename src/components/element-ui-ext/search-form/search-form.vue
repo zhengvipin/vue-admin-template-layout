@@ -32,7 +32,7 @@
     <el-card class="ext-search-form__content" shadow="never" :style="wrapStyle">
       <!-- 革命性的进步，解决了插槽多级传递的问题 -->
       <ext-form
-        ref="extForm"s
+        ref="extForm"
         :items="innerItems"
         v-bind="formProps"
         @form-change="formChange"
