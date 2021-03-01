@@ -88,6 +88,12 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      },
+      {
+        path: 'echarts',
+        name: 'Echarts',
+        component: () => import('@/views/chart/index'),
+        meta: { title: 'Echarts', icon: 'tree' }
       }
     ]
   },
